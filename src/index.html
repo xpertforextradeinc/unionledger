@@ -1,0 +1,43 @@
+unionledger/
+├── public/                      # Static assets (favicon, logo, etc.)
+│   ├── favicon.ico
+│   └── logo.svg
+│
+├── src/                         # Core source files
+│   ├── index.html               # Homepage layout
+│   ├── dashboard.html           # Account overview + transactions
+│   ├── transfer.html            # Peer-to-peer & scheduled transfers
+│   ├── register.html            # Wallet + KYC onboarding
+│   ├── audit.html               # Contributor logs & fallback alerts
+│   └── support.html             # Docs, FAQs, contributor guides
+│
+├── components/                 # Reusable UI blocks
+│   ├── navbar.html
+│   ├── footer.html
+│   ├── card-account.html
+│   └── modal-transfer.html
+│
+├── assets/                     # CSS, JS, and branding
+│   ├── styles/
+│   │   └── main.css
+│   ├── scripts/
+│   │   └── dashboard.js
+│   └── fonts/
+│       └── inter.woff2
+│
+├── backend/                    # API endpoints or microservices
+│   ├── auth.js                 # Wallet + KYC logic
+│   ├── transactions.js         # Deposit, withdrawal, transfer logic
+│   ├── alerts.js               # Slack fallback + audit logging
+│   └── users.js                # Contributor account management
+│
+├── config/                     # Environment and deployment configs
+│   ├── cloudrun.yaml
+│   ├── supabase.env
+│   └── binary-auth.yaml
+│
+└── docs/                       # Audit-friendly contributor documentation
+    ├── onboarding.md
+    ├── api-reference.md
+    ├── fallback-logger.md
+    └── deployment-guide.md

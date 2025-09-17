@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UnionLedger - Secure, scalable digital banking system for global users">
+    <meta name="keywords" content="digital banking, fintech, secure transactions, KYC verification, audit logging">
+    <title>UnionLedger - Digital Banking Platform</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="UnionLedger - Digital Banking Platform">
+    <meta property="og:description" content="Secure, scalable digital banking system for global users">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://unionledger.com">
+</head>
+<body>
+    <!-- Main Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="#" class="navbar-brand" data-nav="homepage">
+                💳 UnionLedger
+            </a>
+            
+            <ul class="navbar-nav">
+                <li><a href="#" class="nav-link" data-nav="homepage">Home</a></li>
+                <li><a href="#" class="nav-link" data-nav="registration">Register</a></li>
+                <li><a href="#" class="nav-link" data-nav="dashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-nav="transfer">Transfer</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Alert Container (populated by JavaScript) -->
+    <div id="alert-container"></div>
+
+    <!-- Homepage Module -->
+    <div class="module active" data-module="homepage">
+        <div class="container">
+            <!-- Hero Section -->
+            <section style="padding: 4rem 0; text-align: center;">
+                <h1>Welcome to UnionLedger</h1>
+                <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 2rem;">
+                    A secure, scalable digital banking system designed for global users and contributors. 
+                    Experience the future of financial services with advanced security and intuitive design.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn btn-primary btn-lg" data-nav="registration">
+                        Get Started
+                    </button>
+                    <button class="btn btn-secondary btn-lg" data-nav="dashboard">
+                        View Dashboard
+                    </button>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section style="padding: 4rem 0;">
+                <h2 class="text-center mb-4">Platform Features</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🛡️</div>
+                            <h3>Secure Transactions</h3>
+                            <p>Advanced encryption and multi-layer security protocols protect your financial data.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                            <h3>KYC Verification</h3>
+                            <p>Comprehensive Know Your Customer onboarding ensures regulatory compliance.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                            <h3>Audit Logging</h3>
+                            <p>Complete transaction history and audit trails for transparency and compliance.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">💰</div>
+                            <h3>Wallet Integration</h3>
+                            <p>Connect and verify multiple digital wallets with seamless integration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust Indicators -->
+            <section style="padding: 2rem 0; background: var(--background-white); border-radius: var(--radius-lg); margin: 2rem 0;">
+                <div class="text-center">
+                    <h3>Trusted by Users Worldwide</h3>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <div style="color: var(--text-light);">🏛️ Bank-Grade Security</div>
+                        <div style="color: var(--text-light);">🔐 256-bit Encryption</div>
+                        <div style="color: var(--text-light);">✅ Regulatory Compliant</div>
+                        <div style="color: var(--text-light);">🌍 Global Access</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Registration Module -->
+    <div class="module" data-module="registration">
+        <div class="container container-sm" style="padding: 2rem 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">Create Your Account</h2>
+                </div>
+                <div class="card-body">
+                    <form data-validate="registration">
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">Full Name</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="fullName" 
+                                name="fullName"
+                                data-validate-rule="required"
+                                placeholder="Enter your full name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address</label>
+                            <input 
+                                type="email" 
+                                class="form-control" 
+                                id="email" 
+                                name="email"
+                                data-validate-rule="required|email"
+                                placeholder="Enter your email address"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <input 
+                                type="tel" 
+                                class="form-control" 
+                                id="phone" 
+                                name="phone"
+                                data-validate-rule="required|phone"
+                                placeholder="Enter your phone number"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="password">Password</label>
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                id="password" 
+                                name="password"
+                                data-validate-rule="required|password"
+                                placeholder="Create a secure password"
+                                required>
+                            <div class="form-help">Password must be at least 8 characters long</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="country">Country</label>
+                            <select class="form-control" id="country" name="country" data-validate-rule="required" required>
+                                <option value="">Select your country</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="DE">Germany</option>
+                                <option value="FR">France</option>
+                                <option value="JP">Japan</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" name="acceptTerms" data-validate-rule="required" required>
+                                <span>I agree to the <a href="#" style="color: var(--primary-blue);">Terms of Service</a> and <a href="#" style="color: var(--primary-blue);">Privacy Policy</a></span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">
+                            Create Account
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="mb-0">Already have an account? <a href="#" class="nav-link" data-nav="dashboard" style="color: var(--primary-blue); display: inline;">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Dashboard Module -->
+    <div class="module" data-module="dashboard">
+        <div class="container" style="padding: 2rem 0;">
+            <!-- Dashboard Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>Welcome back, <span data-user-name>Demo User</span></h2>
+                    <p class="mb-0 text-muted">Account: <span data-account-number>UL-DEMO123</span></p>
+                </div>
+                <div>
+                    <button class="btn btn-secondary" onclick="walletVerification.connectWallet('MetaMask')">
+                        Connect Wallet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Account Balance Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">Available Balance</h5>
+                            <h2 class="mb-0" data-balance style="color: var(--accent-green);">$5,420.50</h2>
+                        </div>
+                        <div style="font-size: 3rem; color: var(--primary-blue);">💰</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="mb-4">
+                <h3>Quick Actions</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <button class="btn btn-primary" data-nav="transfer">
+                        💸 Send Money
+                    </button>
+                    <button class="btn btn-secondary" onclick="unionLedger.navigate('kyc')">
+                        🆔 Complete KYC
+                    </button>
+                    <button class="btn btn-secondary" onclick="unionLedger.navigate('history')">
+                        📊 View History
+                    </button>
+                    <button class="btn btn-secondary" onclick="unionLedger.navigate('settings')">
+                        ⚙️ Settings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Recent Transactions</h4>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;" id="transaction-list">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                            <div>
+                                <strong>Transfer to John Doe</strong>
+                                <br>
+                                <small class="text-muted">Today, 2:30 PM</small>
+                            </div>
+                            <div style="color: var(--danger-red); font-weight: 600;">-$250.00</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                            <div>
+                                <strong>Deposit from External</strong>
+                                <br>
+                                <small class="text-muted">Yesterday, 9:15 AM</small>
+                            </div>
+                            <div style="color: var(--accent-green); font-weight: 600;">+$1,200.00</div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid var(--border-light); border-radius: var(--radius-md);">
+                            <div>
+                                <strong>ATM Withdrawal</strong>
+                                <br>
+                                <small class="text-muted">2 days ago, 6:45 PM</small>
+                            </div>
+                            <div style="color: var(--danger-red); font-weight: 600;">-$100.00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-secondary" data-nav="history">View All Transactions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transfer Module -->
+    <div class="module" data-module="transfer">
+        <div class="container container-sm" style="padding: 2rem 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">Send Money</h2>
+                </div>
+                <div class="card-body">
+                    <form data-validate="transfer">
+                        <div class="form-group">
+                            <label class="form-label" for="recipientAccount">Recipient Account Number</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="recipientAccount" 
+                                name="recipientAccount"
+                                data-validate-rule="required|accountNumber"
+                                placeholder="Enter recipient's account number"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="recipientName">Recipient Name</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="recipientName" 
+                                name="recipientName"
+                                data-validate-rule="required"
+                                placeholder="Enter recipient's full name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="amount">Amount</label>
+                            <div style="position: relative;">
+                                <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);">$</span>
+                                <input 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="amount" 
+                                    name="amount"
+                                    data-validate-rule="required|amount"
+                                    placeholder="0.00"
+                                    step="0.01"
+                                    min="0.01"
+                                    style="padding-left: 2rem;"
+                                    required>
+                            </div>
+                            <div class="form-help">Available balance: <span data-balance>$5,420.50</span></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="transferType">Transfer Type</label>
+                            <select class="form-control" id="transferType" name="transferType" required>
+                                <option value="standard">Standard (1-3 business days) - Free</option>
+                                <option value="express">Express (Same day) - $2.99</option>
+                                <option value="instant">Instant - $4.99</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="memo">Memo (Optional)</label>
+                            <textarea 
+                                class="form-control" 
+                                id="memo" 
+                                name="memo"
+                                rows="3"
+                                placeholder="Add a note for this transfer..."
+                                maxlength="200"></textarea>
+                        </div>
+
+                        <!-- Transfer Summary -->
+                        <div class="alert alert-info">
+                            <strong>Transfer Summary:</strong>
+                            <div style="margin-top: 0.5rem;">
+                                <div>Amount: <span id="summary-amount">$0.00</span></div>
+                                <div>Fee: <span id="summary-fee">$0.00</span></div>
+                                <div><strong>Total: <span id="summary-total">$0.00</span></strong></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">
+                            Send Money
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex align-items-center" style="font-size: 0.875rem; color: var(--text-secondary);">
+                        🔒 All transfers are encrypted and monitored for security
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KYC Module (Hidden by default) -->
+    <div class="module" data-module="kyc">
+        <div class="container container-sm" style="padding: 2rem 0;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">KYC Verification</h2>
+                    <p class="text-center mb-0">Complete your identity verification to unlock all features</p>
+                </div>
+                <div class="card-body">
+                    <form data-validate="kyc">
+                        <div class="form-group">
+                            <label class="form-label">Document Type</label>
+                            <select class="form-control" name="documentType" required>
+                                <option value="">Select document type</option>
+                                <option value="passport">Passport</option>
+                                <option value="drivers_license">Driver's License</option>
+                                <option value="national_id">National ID Card</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Upload Document</label>
+                            <input type="file" class="form-control" accept="image/*,.pdf" name="document" required>
+                            <div class="form-help">Supported formats: JPG, PNG, PDF (Max 5MB)</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" name="dateOfBirth" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" name="address" rows="3" placeholder="Enter your full address" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">
+                            Submit for Verification
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction History Module (Hidden by default) -->
+    <div class="module" data-module="history">
+        <div class="container" style="padding: 2rem 0;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Transaction History</h2>
+                <button class="btn btn-secondary" onclick="unionLedger.logger.exportLogs()">
+                    📁 Export History
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <input type="search" class="form-control" placeholder="Search transactions..." style="width: 300px;">
+                        </div>
+                        <div>
+                            <select class="form-control">
+                                <option>All Transactions</option>
+                                <option>Transfers</option>
+                                <option>Deposits</option>
+                                <option>Withdrawals</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Transaction History Table -->
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: var(--background-light);">
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Date</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Description</th>
+                                    <th style="padding: 1rem; text-align: left; border-bottom: 1px solid var(--border-light);">Type</th>
+                                    <th style="padding: 1rem; text-align: right; border-bottom: 1px solid var(--border-light);">Amount</th>
+                                    <th style="padding: 1rem; text-align: right; border-bottom: 1px solid var(--border-light);">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body">
+                                <!-- Populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--border-light); background: var(--background-white);">
+        <div class="container">
+            <div class="text-center">
+                <p>&copy; 2024 UnionLedger. All rights reserved. | 
+                   <a href="#" style="color: var(--primary-blue);">Privacy Policy</a> | 
+                   <a href="#" style="color: var(--primary-blue);">Terms of Service</a> |
+                   <a href="#" style="color: var(--primary-blue);">Security</a>
+                </p>
+                <p style="font-size: 0.875rem; color: var(--text-light);">
+                    Built with security, scalability, and user experience in mind.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Module-specific JavaScript -->
+    <script>
+        // Update transfer summary when amount or type changes
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('#amount, #transferType')) {
+                updateTransferSummary();
+            }
+        });
+
+        function updateTransferSummary() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const type = document.getElementById('transferType').value;
+            
+            let fee = 0;
+            switch(type) {
+                case 'express': fee = 2.99; break;
+                case 'instant': fee = 4.99; break;
+                default: fee = 0;
+            }
+            
+            const total = amount + fee;
+            
+            document.getElementById('summary-amount').textContent = '$' + amount.toFixed(2);
+            document.getElementById('summary-fee').textContent = '$' + fee.toFixed(2);
+            document.getElementById('summary-total').textContent = '$' + total.toFixed(2);
+        }
+
+        // Populate transaction history table
+        function populateTransactionHistory() {
+            const tbody = document.getElementById('history-table-body');
+            if (!tbody) return;
+            
+            const transactions = [
+                { date: '2024-01-15', description: 'Transfer to John Doe', type: 'Transfer', amount: -250.00, balance: 5420.50 },
+                { date: '2024-01-14', description: 'Deposit from External', type: 'Deposit', amount: 1200.00, balance: 5670.50 },
+                { date: '2024-01-13', description: 'ATM Withdrawal', type: 'Withdrawal', amount: -100.00, balance: 4470.50 },
+                { date: '2024-01-12', description: 'Online Purchase Refund', type: 'Refund', amount: 45.99, balance: 4570.50 },
+                { date: '2024-01-11', description: 'Transfer from Savings', type: 'Transfer', amount: 500.00, balance: 4524.51 }
+            ];
+            
+            tbody.innerHTML = transactions.map(tx => `
+                <tr>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-light);">${new Date(tx.date).toLocaleDateString()}</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-light);">${tx.description}</td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-light);">
+                        <span style="padding: 0.25rem 0.5rem; border-radius: var(--radius-sm); background: var(--background-light); font-size: 0.875rem;">
+                            ${tx.type}
+                        </span>
+                    </td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-light); text-align: right; color: ${tx.amount > 0 ? 'var(--accent-green)' : 'var(--danger-red)'}; font-weight: 600;">
+                        ${tx.amount > 0 ? '+' : ''}$${Math.abs(tx.amount).toFixed(2)}
+                    </td>
+                    <td style="padding: 1rem; border-bottom: 1px solid var(--border-light); text-align: right;">
+                        $${tx.balance.toFixed(2)}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Initialize modules when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            populateTransactionHistory();
+            updateTransferSummary();
+        });
+    </script>
+</body>
+</html>

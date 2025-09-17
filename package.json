@@ -1,0 +1,18 @@
+{
+  "name": "unionledger",
+  "version": "1.0.0",
+  "description": "UnionLedger is a secure, scalable digital banking system designed for global users and contributors. # 🏦 UnionLedger — Modular Online Banking Platform",
+  "main": "walletVerify.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "web3": "^4.16.0"
+  }
+}

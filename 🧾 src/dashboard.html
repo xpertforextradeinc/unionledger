@@ -1,0 +1,72 @@
+<!-- UnionLedger Dashboard -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏦 UnionLedger — My Account</title>
+  <link rel="stylesheet" href="../assets/styles/main.css" />
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <include src="../components/navbar.html"></include>
+
+  <main class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">💼 My Account</h1>
+
+    <!-- Balance Overview -->
+    <section class="bg-white p-6 rounded shadow mb-6">
+      <h2 class="text-xl font-semibold mb-2">💰 Current Balance</h2>
+      <p class="text-2xl font-bold text-emerald-600">$12,450.00</p>
+      <p class="text-sm text-gray-500">Wallet: 0xA3...9F2</p>
+    </section>
+
+    <!-- Transaction History -->
+    <section class="bg-white p-6 rounded shadow mb-6">
+      <h2 class="text-xl font-semibold mb-4">📜 Transaction History</h2>
+      <table class="w-full text-left">
+        <thead>
+          <tr class="border-b">
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sep 15, 2025</td>
+            <td>Deposit</td>
+            <td>$5,000.00</td>
+            <td>✅ Completed</td>
+          </tr>
+          <tr>
+            <td>Sep 12, 2025</td>
+            <td>Transfer</td>
+            <td>$1,250.00</td>
+            <td>⏳ Pending</td>
+          </tr>
+          <tr>
+            <td>Sep 10, 2025</td>
+            <td>Withdrawal</td>
+            <td>$2,000.00</td>
+            <td>❌ Failed</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="flex space-x-4">
+      <a href="transfer.html" class="bg-emerald-600 text-white px-6 py-3 rounded hover:bg-emerald-700">💸 Transfer Funds</a>
+      <a href="deposit.html" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">📥 Deposit</a>
+      <a href="withdraw.html" class="bg-red-600 text-white px-6 py-3 rounded hover:bg-red-700">📤 Withdraw</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <include src="../components/footer.html"></include>
+
+</body>
+</html>

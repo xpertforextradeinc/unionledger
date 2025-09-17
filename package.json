@@ -1,0 +1,20 @@
+{
+  "name": "unionledger",
+  "version": "1.0.0",
+  "description": "UnionLedger is a secure, scalable digital banking system designed for global users and contributors.",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080",
+    "lint": "echo 'Linting HTML, CSS, JS files...'",
+    "test": "echo 'Running tests...'",
+    "build": "echo 'Building production assets...'"
+  },
+  "keywords": ["banking", "fintech", "digital-wallet", "kyc", "audit-logging"],
+  "author": "UnionLedger Contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xpertforextradeinc/unionledger.git"
+  }
+}

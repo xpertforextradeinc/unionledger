@@ -1,0 +1,74 @@
+<!-- UnionLedger Audit Dashboard -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🛡️ UnionLedger — Audit Logs</title>
+  <link rel="stylesheet" href="../assets/styles/main.css" />
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <include src="../components/navbar.html"></include>
+
+  <main class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">🛡️ Audit Logs & Contributor Activity</h1>
+
+    <!-- Deployment Hygiene -->
+    <section class="bg-white p-6 rounded shadow mb-6">
+      <h2 class="text-xl font-semibold mb-2">🔐 Deployment Hygiene</h2>
+      <ul class="list-disc pl-6 text-gray-700">
+        <li>✅ Binary Authorization enabled</li>
+        <li>✅ IAM policies scoped to service accounts</li>
+        <li>✅ No force pushes to protected branches</li>
+        <li>✅ All commits signed and reviewed</li>
+      </ul>
+    </section>
+
+    <!-- Contributor Logs -->
+    <section class="bg-white p-6 rounded shadow mb-6">
+      <h2 class="text-xl font-semibold mb-2">📋 Contributor Logs</h2>
+      <table class="w-full text-left">
+        <thead>
+          <tr class="border-b">
+            <th>Timestamp</th>
+            <th>Contributor</th>
+            <th>Action</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sep 17, 2025 · 10:42 AM</td>
+            <td>@luckman</td>
+            <td>Committed `register.html`</td>
+            <td>✅ Verified</td>
+          </tr>
+          <tr>
+            <td>Sep 17, 2025 · 10:15 AM</td>
+            <td>@copilot</td>
+            <td>Scaffolded `dashboard.html`</td>
+            <td>✅ Reviewed</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Alerting System -->
+    <section class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold mb-2">🚨 Fallback Alerts</h2>
+      <p class="text-gray-700 mb-2">Slack alerts triggered for:</p>
+      <ul class="list-disc pl-6 text-red-600">
+        <li>❌ Failed KYC verification</li>
+        <li>❌ Transfer rejection due to invalid wallet</li>
+        <li>❌ Unauthorized deployment attempt</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <include src="../components/footer.html"></include>
+
+</body>
+</html>

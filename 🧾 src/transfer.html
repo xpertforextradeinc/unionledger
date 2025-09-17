@@ -1,0 +1,53 @@
+<!-- UnionLedger Transfer Center -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💸 UnionLedger — Transfer Funds</title>
+  <link rel="stylesheet" href="../assets/styles/main.css" />
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Navbar -->
+  <include src="../components/navbar.html"></include>
+
+  <main class="max-w-2xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-6">💸 Transfer Funds</h1>
+
+    <!-- Transfer Form -->
+    <form class="bg-white p-6 rounded shadow space-y-4">
+      <div>
+        <label for="recipient" class="block font-semibold mb-1">👤 Recipient Wallet</label>
+        <input type="text" id="recipient" name="recipient" class="w-full border p-2 rounded" placeholder="0xABC...123" required />
+      </div>
+
+      <div>
+        <label for="amount" class="block font-semibold mb-1">💵 Amount</label>
+        <input type="number" id="amount" name="amount" class="w-full border p-2 rounded" placeholder="Enter amount" required />
+      </div>
+
+      <div>
+        <label for="note" class="block font-semibold mb-1">📝 Note (optional)</label>
+        <input type="text" id="note" name="note" class="w-full border p-2 rounded" placeholder="Payment for..." />
+      </div>
+
+      <div>
+        <label for="schedule" class="block font-semibold mb-1">📅 Schedule</label>
+        <input type="datetime-local" id="schedule" name="schedule" class="w-full border p-2 rounded" />
+      </div>
+
+      <button type="submit" class="bg-emerald-600 text-white px-6 py-3 rounded hover:bg-emerald-700">Send Transfer</button>
+    </form>
+
+    <!-- Fallback Alert -->
+    <section class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded">
+      ⚠️ If transfer fails, fallback logger will record the event and alert contributors via Slack.
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <include src="../components/footer.html"></include>
+
+</body>
+</html>

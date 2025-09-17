@@ -1,0 +1,32 @@
+# 🚀 UnionLedger — Google Cloud Run Deployment Config
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: unionledger-api
+  namespace: default
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"  # 🧊 Prevent cold starts
+        run.googleapis.com/execution-environment: gen2
+        run.googleapis.com/startup-cpu-boost: "true"
+    spec:
+      containers:
+        - image: gcr.io/unionledger/unionledger-api:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: slack-alerts
+                  key: webhook
+            - name: NODE_ENV
+              value: production
+          resources:
+            limits:
+              cpu: 1
+              memory: 512Mi
+      timeoutSeconds: 300
+      serviceAccountName: unionledger-deployer

@@ -1,0 +1,21 @@
+require('dotenv').config();
+const Web3 = require('web3');
+
+const endpoints = [
+  // ✅ Google Blockchain Node Engine
+  'https://blockchain.googleapis.com/v1/projects/xpert-forex-trade/locations/us-central1/endpoints/ethereum-mainnet/rpc',
+  'https://blockchain.googleapis.com/v1/projects/xpert-forex-trade/locations/asia-east1/endpoints/ethereum-mainnet/rpc',
+
+  // ✅ Ankr
+  'https://rpc.ankr.com/eth',
+
+  // ✅ Infura (secure via .env)
+  `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`,
+
+  // ✅ Alchemy (secure via .env)
+  `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_KEY}`,
+
+  // ✅ Cloudflare (no key required)
+  'https://cloudflare-eth.com'
+];
+

@@ -31,7 +31,7 @@ app.get('/audit', (req, res) => {
 
 // API Routes
 const { verifyWallet, verifyKYC } = require('./backend/auth');
-const { deposit, withdraw, transfer } = require('./backend/🔧 backend/transactions');
+const { deposit, withdraw, transfer } = require('./backend/transactions');
 
 // Auth endpoints
 app.post('/api/auth/wallet', async (req, res) => {

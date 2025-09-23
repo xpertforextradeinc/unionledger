@@ -1,0 +1,23 @@
+{
+  "name": "unionledger",
+  "version": "1.0.0",
+  "description": "UnionLedger is a secure, scalable digital banking system designed for global users and contributors. # 🏦 UnionLedger — Modular Online Banking Platform",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build step required for this HTML/JS application'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "web3": "^4.16.0"
+  }
+}

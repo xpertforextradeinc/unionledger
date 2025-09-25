@@ -1,6 +1,6 @@
 #!/bin/bash
 # UnionLedger Test Runner
-# Simple validation script for contributors
+# Comprehensive validation script for contributors
 
 echo "🧪 Running UnionLedger validation tests..."
 echo ""

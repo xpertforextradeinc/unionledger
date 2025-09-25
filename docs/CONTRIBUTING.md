@@ -19,7 +19,7 @@ We welcome various types of contributions:
 1. **Fork the Repository**
    ```bash
    # Click "Fork" on GitHub, then clone your fork
-   git clone https://github.com/YOUR-USERNAME/unionledger.git
+   git clone https://github.com/UnionLedger/unionledger.git
    cd unionledger
    ```
 

@@ -1,8 +1,11 @@
 // UnionLedger Server
 const express = require('express');
 const path = require('path');
+const WebSocket = require('ws');
+const http = require('http');
 
 const app = express();
+const server = http.createServer(app);
 
 // Middleware
 app.use(express.json());
@@ -25,6 +28,10 @@ app.get('/transfer', (req, res) => {
   res.sendFile(path.join(__dirname, '🧾 src', 'transfer.html'));
 });
 
+app.get('/trading', (req, res) => {
+  res.sendFile(path.join(__dirname, '🧾 src', 'trading.html'));
+});
+
 app.get('/audit', (req, res) => {
   res.sendFile(path.join(__dirname, '🧾 src', 'audit.html'));
 });
@@ -32,6 +39,7 @@ app.get('/audit', (req, res) => {
 // API Routes
 const { verifyWallet, verifyKYC } = require('./backend/auth');
 const { deposit, withdraw, transfer } = require('./backend/transactions');
+const { startBot, stopBot, getBotStatus, getTradingHistory, updateStrategy, getBotInstance } = require('./backend/tradingBot');
 
 // Auth endpoints
 app.post('/api/auth/wallet', async (req, res) => {
@@ -83,8 +91,108 @@ app.post('/api/tx/transfer', async (req, res) => {
   }
 });
 
+// Trading Bot endpoints
+app.post('/api/trading/start', async (req, res) => {
+  try {
+    const result = await startBot();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/trading/stop', async (req, res) => {
+  try {
+    const result = await stopBot();
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/trading/status', (req, res) => {
+  try {
+    const status = getBotStatus();
+    res.json(status);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/trading/history', (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 50;
+    const history = getTradingHistory(limit);
+    res.json(history);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/trading/strategy/:strategyKey', async (req, res) => {
+  try {
+    const { strategyKey } = req.params;
+    const result = updateStrategy(strategyKey, req.body);
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+
+// WebSocket server for real-time trading updates
+const wss = new WebSocket.Server({ server, path: '/trading-ws' });
+
+wss.on('connection', (ws) => {
+  console.log('🔌 Trading WebSocket client connected');
+  
+  // Send current bot status on connection
+  const status = getBotStatus();
+  ws.send(JSON.stringify({ type: 'status', data: status }));
+  
+  ws.on('close', () => {
+    console.log('🔌 Trading WebSocket client disconnected');
+  });
+});
+
+// Setup real-time event listeners for trading bot
+const botInstance = getBotInstance();
+
+botInstance.on('marketUpdate', (data) => {
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({ type: 'marketUpdate', data }));
+    }
+  });
+});
+
+botInstance.on('tradeExecuted', (data) => {
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({ type: 'tradeExecuted', data }));
+    }
+  });
+});
+
+botInstance.on('botStarted', (data) => {
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({ type: 'botStarted', data }));
+    }
+  });
+});
+
+botInstance.on('botStopped', (data) => {
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({ type: 'botStopped', data }));
+    }
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`✅ UnionLedger server running on port ${PORT}`);
   console.log(`🌐 Access the application at: http://localhost:${PORT}`);
+  console.log(`🤖 Trading WebSocket available at: ws://localhost:${PORT}/trading-ws`);
 });

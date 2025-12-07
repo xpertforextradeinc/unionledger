@@ -1,5 +1,5 @@
 // backend/controllers/txController.js
-const { deposit, withdraw, transfer } = require('../🔧 backend/transactions');
+const { deposit, withdraw, transfer } = require('../transactions');
 
 module.exports = {
   deposit,

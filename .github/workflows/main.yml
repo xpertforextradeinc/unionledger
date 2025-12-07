@@ -1,0 +1,38 @@
+name: UnionLedger CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: ⬇️ Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🧰 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 📦 Install dependencies
+      run: npm install
+
+    - name: 🚀 Start server (test startup)
+      run: |
+        timeout 10s node server.js &
+        sleep 3
+        curl --fail http://localhost:8080/ || exit 1
+
+    - name: 🔍 Validate API endpoints
+      run: |
+        curl -X POST http://localhost:8080/api/auth/wallet -H "Content-Type: application/json" -d '{"address": "0xABC123456789"}'
+        curl -X POST http://localhost:8080/api/tx/deposit -H "Content-Type: application/json" -d '{"wallet": "0xABC123", "amount": 100}'
+        curl -X POST http://localhost:8080/api/tx/transfer -H "Content-Type: application/json" -d '{"fromWallet": "0xABC123", "toWallet": "0xDEF456", "amount": 50}'
+
+    - name: ✅ Confirm success
+      run: echo "UnionLedger CI passed ✅"

@@ -33,3 +33,7 @@ package-lock.json
 # 🔐 Environment files
 .env
 backend/.env
+
+# Test files (optional - remove if you want to include them)
+# test-*.html
+# test-*.sh

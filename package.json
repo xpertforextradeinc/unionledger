@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "node server.js",
-    "build": "echo 'No build step required for this HTML/JS application'"
+    "build": "echo 'No build step required for this HTML/JS application'",
+    "test:links": "bash test-links.sh"
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Link Testing Script for UnionLedger
 # This script tests all page routes to ensure they're accessible

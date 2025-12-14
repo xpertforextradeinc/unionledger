@@ -1,43 +1,367 @@
-unionledger/
-├── public/                      # Static assets (favicon, logo, etc.)
-│   ├── favicon.ico
-│   └── logo.svg
-│
-├── src/                         # Core source files
-│   ├── index.html               # Homepage layout
-│   ├── dashboard.html           # Account overview + transactions
-│   ├── transfer.html            # Peer-to-peer & scheduled transfers
-│   ├── register.html            # Wallet + KYC onboarding
-│   ├── audit.html               # Contributor logs & fallback alerts
-│   └── support.html             # Docs, FAQs, contributor guides
-│
-├── components/                 # Reusable UI blocks
-│   ├── navbar.html
-│   ├── footer.html
-│   ├── card-account.html
-│   └── modal-transfer.html
-│
-├── assets/                     # CSS, JS, and branding
-│   ├── styles/
-│   │   └── main.css
-│   ├── scripts/
-│   │   └── dashboard.js
-│   └── fonts/
-│       └── inter.woff2
-│
-├── backend/                    # API endpoints or microservices
-│   ├── auth.js                 # Wallet + KYC logic
-│   ├── transactions.js         # Deposit, withdrawal, transfer logic
-│   ├── alerts.js               # Slack fallback + audit logging
-│   └── users.js                # Contributor account management
-│
-├── config/                     # Environment and deployment configs
-│   ├── cloudrun.yaml
-│   ├── supabase.env
-│   └── binary-auth.yaml
-│
-└── docs/                       # Audit-friendly contributor documentation
-    ├── onboarding.md
-    ├── api-reference.md
-    ├── fallback-logger.md
-    └── deployment-guide.md
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UnionLedger - Secure, scalable digital banking system for global users. Discover essential tools and resources for modern banking.">
+  <meta name="keywords" content="UnionLedger, digital banking, secure banking, online banking, financial technology">
+  <meta name="author" content="UnionLedger">
+  
+  <!-- Open Graph Meta Tags for SEO -->
+  <meta property="og:title" content="UnionLedger - Modular Online Banking Platform">
+  <meta property="og:description" content="Secure, audit-friendly banking system for global contributors and client ecosystems.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xpertforextradeinc.github.io/unionledger/">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="UnionLedger - Modular Online Banking Platform">
+  <meta name="twitter:description" content="Secure, audit-friendly banking system for global contributors.">
+  
+  <title>🏦 UnionLedger - Modular Online Banking Platform</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+      border-radius: 10px;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      color: #667eea;
+      font-weight: 700;
+    }
+    
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      color: #667eea;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    nav a:hover {
+      background: #667eea;
+      color: white;
+    }
+    
+    .hero {
+      background: white;
+      padding: 60px 40px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .feature-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #667eea;
+    }
+    
+    .affiliate-section {
+      background: white;
+      padding: 50px 40px;
+      border-radius: 15px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .affiliate-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    
+    .affiliate-section > p {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 40px;
+    }
+    
+    .affiliate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .affiliate-card {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .affiliate-card:hover {
+      transform: translateY(-8px);
+      border-color: #667eea;
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .affiliate-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .affiliate-card p {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 40px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+    }
+    
+    .cta-button:active {
+      transform: scale(0.98);
+    }
+    
+    footer {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      color: #666;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+    
+    footer p {
+      margin-bottom: 10px;
+    }
+    
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .hero {
+        padding: 40px 20px;
+      }
+      
+      .affiliate-section {
+        padding: 30px 20px;
+      }
+      
+      .affiliate-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      nav {
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+      
+      .hero h2 {
+        font-size: 1.5rem;
+      }
+      
+      .cta-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <h1>🏦 UnionLedger</h1>
+        <nav>
+          <a href="/dashboard">📊 Dashboard</a>
+          <a href="/register">📝 Register</a>
+          <a href="/transfer">💸 Transfer</a>
+          <a href="/trading">📈 Trading</a>
+          <a href="/audit">🛡️ Audit</a>
+        </nav>
+      </div>
+    </header>
+    
+    <main>
+      <section class="hero">
+        <h2>Welcome to UnionLedger</h2>
+        <p>A secure, audit-friendly banking system designed for global contributors and client ecosystems. Built with modular architecture and emoji-coded diagnostics, empowering users with transparent transactions and fallback alerting.</p>
+      </section>
+      
+      <section class="features">
+        <div class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h3>Account Dashboard</h3>
+          <p>View balance and transaction history</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💸</div>
+          <h3>Transfers</h3>
+          <p>Peer-to-peer transfers with scheduling</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>KYC Onboarding</h3>
+          <p>Secure wallet and identity verification</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Audit Logging</h3>
+          <p>Complete transparency and security</p>
+        </div>
+      </section>
+      
+      <section class="affiliate-section">
+        <h2>📚 Recommended Resources</h2>
+        <p>Enhance your financial knowledge and banking experience with these carefully selected resources</p>
+        
+        <div class="affiliate-grid">
+          <div class="affiliate-card">
+            <h3>💡 Financial Planning Resource</h3>
+            <p>Essential tools and educational resources to enhance your digital banking experience and financial literacy. Perfect for users looking to optimize their financial workflows and build lasting wealth.</p>
+            <a href="https://amzn.to/48Qlt6X" class="cta-button" target="_blank" rel="noopener noreferrer nofollow">Learn More →</a>
+          </div>
+          
+          <div class="affiliate-card">
+            <h3>🚀 Banking Technology Solution</h3>
+            <p>Advanced solutions for modern banking needs, including security tools, automation software, and productivity enhancers. Streamline your transactions and take control of your financial future with innovative technology.</p>
+            <a href="https://amzn.to/4agyRns" class="cta-button" target="_blank" rel="noopener noreferrer nofollow">Discover Now →</a>
+          </div>
+          
+          <div class="affiliate-card">
+            <h3>⭐ Professional Finance Tools</h3>
+            <p>Premium resources including books, courses, and software designed for financial professionals and enthusiasts. Elevate your banking capabilities with cutting-edge tools, expert insights, and proven strategies.</p>
+            <a href="https://amzn.to/4aK0p4E" class="cta-button" target="_blank" rel="noopener noreferrer nofollow">Explore More →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer>
+      <p>&copy; 2024 UnionLedger. All rights reserved.</p>
+      <p>Built with ❤️ for global contributors | <a href="https://github.com/xpertforextradeinc/unionledger" target="_blank" rel="noopener">View on GitHub</a></p>
+      <p><small>Disclosure: This page contains affiliate links. We may earn a commission from qualifying purchases at no additional cost to you.</small></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,43 +1,245 @@
-unionledger/
-├── public/                      # Static assets (favicon, logo, etc.)
-│   ├── favicon.ico
-│   └── logo.svg
-│
-├── src/                         # Core source files
-│   ├── index.html               # Homepage layout
-│   ├── dashboard.html           # Account overview + transactions
-│   ├── transfer.html            # Peer-to-peer & scheduled transfers
-│   ├── register.html            # Wallet + KYC onboarding
-│   ├── audit.html               # Contributor logs & fallback alerts
-│   └── support.html             # Docs, FAQs, contributor guides
-│
-├── components/                 # Reusable UI blocks
-│   ├── navbar.html
-│   ├── footer.html
-│   ├── card-account.html
-│   └── modal-transfer.html
-│
-├── assets/                     # CSS, JS, and branding
-│   ├── styles/
-│   │   └── main.css
-│   ├── scripts/
-│   │   └── dashboard.js
-│   └── fonts/
-│       └── inter.woff2
-│
-├── backend/                    # API endpoints or microservices
-│   ├── auth.js                 # Wallet + KYC logic
-│   ├── transactions.js         # Deposit, withdrawal, transfer logic
-│   ├── alerts.js               # Slack fallback + audit logging
-│   └── users.js                # Contributor account management
-│
-├── config/                     # Environment and deployment configs
-│   ├── cloudrun.yaml
-│   ├── supabase.env
-│   └── binary-auth.yaml
-│
-└── docs/                       # Audit-friendly contributor documentation
-    ├── onboarding.md
-    ├── api-reference.md
-    ├── fallback-logger.md
-    └── deployment-guide.md
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UnionLedger - Your trusted partner for financial products and trading solutions">
+  <title>🏦 UnionLedger - Financial Products & Trading Solutions</title>
+  <link rel="stylesheet" href="../assets/styles/main.css">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="navbar-brand">
+        <span>🏦</span>
+        <span>UnionLedger</span>
+      </a>
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/register">Get Started</a></li>
+        <li><a href="/testimonials">Testimonials</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>🚀 Discover Premium Financial Products</h1>
+      <p>Transform your financial future with our curated selection of trading tools, investment platforms, and banking solutions</p>
+      <div class="hero-cta">
+        <a href="/register" class="btn btn-primary">Start Your Journey</a>
+        <a href="#products" class="btn btn-secondary">Explore Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Banner -->
+  <section>
+    <div class="container">
+      <div class="banner">
+        <h3>🎯 Limited Time Offer!</h3>
+        <p>Get exclusive access to premium trading platforms with special bonuses for new members</p>
+        <a href="/register" class="btn btn-primary">Claim Your Bonus</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products">
+    <div class="container">
+      <h2 class="text-center">💼 Featured Financial Products</h2>
+      <p class="text-center mb-8">Handpicked solutions to help you achieve your financial goals</p>
+      
+      <div class="products-grid">
+        
+        <!-- Product Card 1 -->
+        <div class="product-card">
+          <div class="product-image">💹</div>
+          <div class="product-content">
+            <h3 class="product-title">Advanced Trading Platform</h3>
+            <p class="product-description">Professional-grade trading tools with real-time analytics, automated strategies, and expert support. Perfect for serious traders.</p>
+            <div class="product-price">Starting at $99/mo</div>
+            <div class="product-link">
+              <a href="/trading" class="btn btn-success">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="product-card">
+          <div class="product-image">🔐</div>
+          <div class="product-content">
+            <h3 class="product-title">Secure Digital Wallet</h3>
+            <p class="product-description">Bank-grade security for your crypto and fiat currencies. Multi-signature protection and insurance coverage included.</p>
+            <div class="product-price">Free to Start</div>
+            <div class="product-link">
+              <a href="/register" class="btn btn-success">Get Wallet</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 3 -->
+        <div class="product-card">
+          <div class="product-image">📊</div>
+          <div class="product-content">
+            <h3 class="product-title">Investment Portfolio Manager</h3>
+            <p class="product-description">AI-powered portfolio optimization with risk management tools. Track multiple assets across different markets seamlessly.</p>
+            <div class="product-price">$49/mo</div>
+            <div class="product-link">
+              <a href="/dashboard" class="btn btn-success">Start Managing</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 4 -->
+        <div class="product-card">
+          <div class="product-image">💰</div>
+          <div class="product-content">
+            <h3 class="product-title">Premium Banking Services</h3>
+            <p class="product-description">Full-service digital banking with international transfers, savings accounts, and exclusive interest rates for members.</p>
+            <div class="product-price">Premium Access</div>
+            <div class="product-link">
+              <a href="/transfer" class="btn btn-success">Open Account</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 5 -->
+        <div class="product-card">
+          <div class="product-image">📈</div>
+          <div class="product-content">
+            <h3 class="product-title">Trading Signal Service</h3>
+            <p class="product-description">Expert market analysis and trading signals delivered in real-time. Join thousands of successful traders.</p>
+            <div class="product-price">$79/mo</div>
+            <div class="product-link">
+              <a href="/trading" class="btn btn-success">Subscribe Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Card 6 -->
+        <div class="product-card">
+          <div class="product-image">🎓</div>
+          <div class="product-content">
+            <h3 class="product-title">Trading Education Bundle</h3>
+            <p class="product-description">Comprehensive courses from beginner to advanced. Video tutorials, live webinars, and certification programs.</p>
+            <div class="product-price">$299 one-time</div>
+            <div class="product-link">
+              <a href="/faq" class="btn btn-success">Enroll Today</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section style="background-color: var(--white);">
+    <div class="container">
+      <h2 class="text-center">✨ Why Choose UnionLedger?</h2>
+      <p class="text-center mb-8">We're committed to your financial success</p>
+      
+      <div class="products-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <h3 class="product-title">🛡️ Secure & Trusted</h3>
+          <p class="testimonial-text">Bank-grade security with multi-factor authentication, encryption, and insurance coverage for your peace of mind.</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <h3 class="product-title">🌍 Global Access</h3>
+          <p class="testimonial-text">Trade and manage your finances from anywhere in the world with 24/7 support and local payment methods.</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <h3 class="product-title">💎 Premium Features</h3>
+          <p class="testimonial-text">Access exclusive tools, priority support, and special offers available only to UnionLedger members.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section>
+    <div class="container">
+      <div class="banner">
+        <h3>🎉 Ready to Transform Your Financial Future?</h3>
+        <p>Join thousands of satisfied customers who have already started their journey with UnionLedger</p>
+        <div class="hero-cta">
+          <a href="/register" class="btn btn-primary">Get Started Now</a>
+          <a href="/about" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>🏦 UnionLedger</h3>
+          <p>Your trusted partner for financial products and trading solutions. Empowering individuals worldwide to achieve financial freedom.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/register">Get Started</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="/testimonials">Testimonials</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/audit">Audit Logs</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Risk Disclosure</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 UnionLedger. All rights reserved. Trading and investments carry risk. Please invest responsibly.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    document.getElementById('navbarToggle').addEventListener('click', function() {
+      document.getElementById('navbarMenu').classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

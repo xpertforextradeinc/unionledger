@@ -36,6 +36,22 @@ app.get('/audit', (req, res) => {
   res.sendFile(path.join(__dirname, '🧾 src', 'audit.html'));
 });
 
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, '🧾 src', 'about.html'));
+});
+
+app.get('/contact', (req, res) => {
+  res.sendFile(path.join(__dirname, '🧾 src', 'contact.html'));
+});
+
+app.get('/testimonials', (req, res) => {
+  res.sendFile(path.join(__dirname, '🧾 src', 'testimonials.html'));
+});
+
+app.get('/faq', (req, res) => {
+  res.sendFile(path.join(__dirname, '🧾 src', 'faq.html'));
+});
+
 // API Routes
 const { verifyWallet, verifyKYC } = require('./backend/auth');
 const { deposit, withdraw, transfer } = require('./backend/transactions');

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact UnionLedger for support and inquiries">
+  <title>Contact Us - UnionLedger</title>
+  <link rel="stylesheet" href="../assets/styles/main.css">
+</head>
+<body>
+  
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="navbar-brand">
+        <span>🏦</span>
+        <span>UnionLedger</span>
+      </a>
+      <button class="navbar-toggle" id="navbarToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/register">Get Started</a></li>
+        <li><a href="/testimonials">Testimonials</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>📧 Get in Touch</h1>
+      <p>We're here to help you succeed</p>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section>
+    <div class="container">
+      <h2 class="text-center">💬 Send Us a Message</h2>
+      <p class="text-center mb-8">Have a question? We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+      
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">👤 Full Name *</label>
+          <input type="text" id="name" name="name" placeholder="John Doe" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">📧 Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">📝 Subject *</label>
+          <select id="subject" name="subject" required>
+            <option value="">Select a subject...</option>
+            <option value="general">General Inquiry</option>
+            <option value="support">Technical Support</option>
+            <option value="products">Product Information</option>
+            <option value="partnership">Partnership Opportunities</option>
+            <option value="feedback">Feedback</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">💭 Message *</label>
+          <textarea id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" style="width: 100%;">Send Message</button>
+      </form>
+
+      <div id="formResponse" style="display: none; margin-top: 1rem;"></div>
+    </div>
+  </section>
+
+  <!-- Contact Information -->
+  <section style="background-color: var(--white);">
+    <div class="container">
+      <h2 class="text-center">📞 Other Ways to Reach Us</h2>
+      
+      <div class="products-grid">
+        <div class="testimonial-card">
+          <h3 class="product-title">📧 Email Support</h3>
+          <p class="testimonial-text">For general inquiries:<br><strong>info@unionledger.com</strong></p>
+          <p class="testimonial-text">For support:<br><strong>support@unionledger.com</strong></p>
+        </div>
+        
+        <div class="testimonial-card">
+          <h3 class="product-title">⏰ Business Hours</h3>
+          <p class="testimonial-text">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+          <p class="testimonial-text">Saturday: 10:00 AM - 4:00 PM EST</p>
+          <p class="testimonial-text">Sunday: Closed</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <h3 class="product-title">🌐 Social Media</h3>
+          <p class="testimonial-text">Follow us for updates and news:</p>
+          <p class="testimonial-text">
+            Twitter | LinkedIn | Facebook<br>
+            Telegram | Discord
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Link Section -->
+  <section>
+    <div class="container">
+      <div class="banner">
+        <h3>🤔 Have a Quick Question?</h3>
+        <p>Check out our FAQ section - you might find the answer you're looking for instantly!</p>
+        <a href="/faq" class="btn btn-primary">Visit FAQ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>🏦 UnionLedger</h3>
+          <p>Your trusted partner for financial products and trading solutions. Empowering individuals worldwide to achieve financial freedom.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/register">Get Started</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="/testimonials">Testimonials</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/audit">Audit Logs</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Risk Disclosure</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 UnionLedger. All rights reserved. Trading and investments carry risk. Please invest responsibly.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    document.getElementById('navbarToggle').addEventListener('click', function() {
+      document.getElementById('navbarMenu').classList.toggle('active');
+    });
+
+    // Contact Form Handler
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formResponse = document.getElementById('formResponse');
+      const formData = new FormData(this);
+      
+      // Simulate form submission (in production, this would send to a server)
+      formResponse.style.display = 'block';
+      formResponse.innerHTML = '<div class="banner" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"><p style="color: white; margin: 0;">✅ Thank you for your message! We\'ll get back to you within 24 hours.</p></div>';
+      
+      // Reset form
+      this.reset();
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        formResponse.style.display = 'none';
+      }, 5000);
+    });
+  </script>
+
+</body>
+</html>

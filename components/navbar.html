@@ -24,7 +24,6 @@ function toggleMenu() {
 document.addEventListener('click', function(event) {
   const navbar = document.querySelector('.navbar');
   const menu = document.getElementById('navbarMenu');
-  const toggle = document.querySelector('.navbar-toggle');
   
   if (!navbar.contains(event.target) && menu.classList.contains('active')) {
     menu.classList.remove('active');

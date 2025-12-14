@@ -1,43 +1,301 @@
-unionledger/
-├── public/                      # Static assets (favicon, logo, etc.)
-│   ├── favicon.ico
-│   └── logo.svg
-│
-├── src/                         # Core source files
-│   ├── index.html               # Homepage layout
-│   ├── dashboard.html           # Account overview + transactions
-│   ├── transfer.html            # Peer-to-peer & scheduled transfers
-│   ├── register.html            # Wallet + KYC onboarding
-│   ├── audit.html               # Contributor logs & fallback alerts
-│   └── support.html             # Docs, FAQs, contributor guides
-│
-├── components/                 # Reusable UI blocks
-│   ├── navbar.html
-│   ├── footer.html
-│   ├── card-account.html
-│   └── modal-transfer.html
-│
-├── assets/                     # CSS, JS, and branding
-│   ├── styles/
-│   │   └── main.css
-│   ├── scripts/
-│   │   └── dashboard.js
-│   └── fonts/
-│       └── inter.woff2
-│
-├── backend/                    # API endpoints or microservices
-│   ├── auth.js                 # Wallet + KYC logic
-│   ├── transactions.js         # Deposit, withdrawal, transfer logic
-│   ├── alerts.js               # Slack fallback + audit logging
-│   └── users.js                # Contributor account management
-│
-├── config/                     # Environment and deployment configs
-│   ├── cloudrun.yaml
-│   ├── supabase.env
-│   └── binary-auth.yaml
-│
-└── docs/                       # Audit-friendly contributor documentation
-    ├── onboarding.md
-    ├── api-reference.md
-    ├── fallback-logger.md
-    └── deployment-guide.md
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="UnionLedger - A secure, audit-friendly modular online banking platform designed for global contributors and client ecosystems." />
+  <meta name="keywords" content="banking, blockchain, wallet, KYC, transactions, audit, secure" />
+  <title>🏦 UnionLedger — Modular Online Banking Platform</title>
+  <link rel="stylesheet" href="/assets/styles/main.css" />
+</head>
+<body>
+  
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="/" class="navbar-brand">🏦 UnionLedger</a>
+      <button class="navbar-toggle" onclick="toggleMenu()">☰</button>
+      <ul class="navbar-menu" id="navbarMenu">
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/transfer">Transfer</a></li>
+        <li><a href="/trading">Trading</a></li>
+        <li><a href="/audit">Audit</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>🏦 UnionLedger</h1>
+      <p>A secure, audit-friendly modular banking platform designed for global contributors and client ecosystems. Experience transparent transactions with emoji-coded diagnostics and fallback alerting.</p>
+      <div class="hero-buttons">
+        <a href="/register" class="btn btn-primary">📝 Open Account</a>
+        <a href="/dashboard" class="btn btn-outline">💼 View Dashboard</a>
+        <a href="https://github.com/xpertforextradeinc/unionledger" target="_blank" class="btn btn-secondary">📘 Documentation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🚀 Features</h2>
+        <p class="section-subtitle">Powerful banking features built with security, transparency, and contributor clarity in mind</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">💼</span>
+          <h3 class="feature-title">Account Dashboard</h3>
+          <p class="feature-description">View your balance, transaction history, and account overview in a clean, intuitive interface with real-time updates.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">💸</span>
+          <h3 class="feature-title">Transfer Module</h3>
+          <p class="feature-description">Peer-to-peer transfers with scheduling capabilities and automatic fallback alerts for failed transactions.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">📥</span>
+          <h3 class="feature-title">Deposit & Withdrawal</h3>
+          <p class="feature-description">Secure deposit and withdrawal flows with comprehensive audit logging and real-time balance updates.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🔐</span>
+          <h3 class="feature-title">Wallet + KYC</h3>
+          <p class="feature-description">Web3 wallet integration with streamlined KYC onboarding and automated Slack alert triggers for verification.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🛡️</span>
+          <h3 class="feature-title">Audit Dashboard</h3>
+          <p class="feature-description">Track contributor activity, deployment hygiene, and security events with full transparency and audit trails.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">📊</span>
+          <h3 class="feature-title">Trading Bot</h3>
+          <p class="feature-description">Automated trading capabilities with real-time WebSocket updates, configurable strategies, and comprehensive history tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value">🔐</span>
+          <span class="stat-label">Binary Authorization Enabled</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">✅</span>
+          <span class="stat-label">Signed Commits Required</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">📡</span>
+          <span class="stat-label">Slack Fallback Alerts</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">🌐</span>
+          <span class="stat-label">Global Contributor Network</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">About UnionLedger</h2>
+        <p class="section-subtitle">Built with security, transparency, and contributor collaboration at its core</p>
+      </div>
+      
+      <div class="about-content">
+        <div class="about-text">
+          <h3>🧩 Modular Architecture</h3>
+          <p>UnionLedger is built with a modular design philosophy, separating frontend modules, backend API logic, reusable UI components, and configuration management. This approach ensures maintainability, scalability, and ease of contribution.</p>
+          
+          <h3>🔐 Audit Hygiene</h3>
+          <p>Security and transparency are paramount. Every action is logged with emoji-coded diagnostics for quick visibility. Features include signed commits, binary authorization, automated Slack alerts for failed operations, and comprehensive fallback logging for contributor oversight.</p>
+          
+          <h3>🌍 Global Ecosystem</h3>
+          <p>Designed for global users and contributors, UnionLedger supports wallet-based authentication, multi-currency transactions, and provides branded workflows that adapt to different client ecosystems while maintaining audit compliance.</p>
+        </div>
+        
+        <div class="about-image">
+          <span class="emoji">🏦</span>
+          <h3>Secure Banking Platform</h3>
+          <p>Built for contributors, trusted by users worldwide</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technology Stack Section -->
+  <section class="section bg-gray">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🛠️ Technology Stack</h2>
+        <p class="section-subtitle">Modern technologies powering a secure banking experience</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3 class="feature-title">Frontend</h3>
+          <p class="feature-description">HTML5, CSS3, JavaScript with responsive design and modern UI patterns for seamless user experience across all devices.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🚀</span>
+          <h3 class="feature-title">Backend</h3>
+          <p class="feature-description">Node.js with Express framework, providing fast, scalable API endpoints for authentication, transactions, and real-time updates.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">🔗</span>
+          <h3 class="feature-title">Web3 Integration</h3>
+          <p class="feature-description">Web3.js for blockchain wallet verification, supporting Ethereum and compatible networks with fallback RPC providers.</p>
+        </div>
+        
+        <div class="feature-card">
+          <span class="feature-icon">📡</span>
+          <h3 class="feature-title">Real-time Updates</h3>
+          <p class="feature-description">WebSocket connections for live trading updates, transaction notifications, and instant balance synchronization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">📧 Contact Us</h2>
+        <p class="section-subtitle">Have questions? Get in touch with our team</p>
+      </div>
+      
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">👤 Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="email">📧 Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">📋 Subject</label>
+          <input type="text" id="subject" name="subject" placeholder="How can we help?" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="message">💬 Message</label>
+          <textarea id="message" name="message" placeholder="Your message..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+      </form>
+      
+      <div style="text-align: center; margin-top: 2rem; color: var(--light-gray);">
+        <p>📡 For urgent issues, automated Slack alerts are available for registered contributors</p>
+        <p>💻 View our GitHub: <a href="https://github.com/xpertforextradeinc/unionledger" target="_blank" style="color: var(--primary);">xpertforextradeinc/unionledger</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>🏦 UnionLedger</h4>
+          <p>A secure, audit-friendly banking platform built for global contributors and client ecosystems.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/transfer">Transfer</a></li>
+            <li><a href="/audit">Audit</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="https://github.com/xpertforextradeinc/unionledger" target="_blank">📘 Documentation</a></li>
+            <li><a href="https://github.com/xpertforextradeinc/unionledger" target="_blank">💻 GitHub Repository</a></li>
+            <li><a href="/audit">🛡️ Audit Logs</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul>
+            <li>📧 support@unionledger.com</li>
+            <li>🌐 xpertforextradeinc</li>
+            <li>💬 Slack Alerts Enabled</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 UnionLedger. Modular Banking Platform with Audit Hygiene. Built with ❤️ by contributors.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      const menu = document.getElementById('navbarMenu');
+      menu.classList.toggle('active');
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const navbar = document.querySelector('.navbar');
+      const menu = document.getElementById('navbarMenu');
+      
+      if (!navbar.contains(event.target) && menu.classList.contains('active')) {
+        menu.classList.remove('active');
+      }
+    });
+
+    // Contact form submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+      
+      // Simulate form submission
+      alert('✅ Thank you for your message! We will get back to you soon.\n\nNote: In production, this would trigger a Slack notification to contributors.');
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>

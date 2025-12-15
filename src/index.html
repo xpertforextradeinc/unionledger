@@ -360,10 +360,14 @@
     </main>
     
     <footer>
-      <p>&copy; 2024 UnionLedger. All rights reserved.</p>
+      <p>&copy; <span id="copyright-year"></span> UnionLedger. All rights reserved.</p>
       <p>Built with ❤️ for global contributors | <a href="https://github.com/xpertforextradeinc/unionledger" target="_blank" rel="noopener">View on GitHub</a></p>
       <p><small>Disclosure: This page contains affiliate links. We may earn a commission from qualifying purchases at no additional cost to you.</small></p>
     </footer>
   </div>
+  <script>
+    // Dynamically set the copyright year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

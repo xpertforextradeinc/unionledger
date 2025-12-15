@@ -57,8 +57,10 @@ wheels/
 # Node.js dependencies
 node_modules/
 package-lock.json
-# 🔐 Environment files
+
+# 🔐 Environment files (exclude .env but allow .env.example)
 .env
+!.env.example
 backend/.env
 
 # Test files (optional - remove if you want to include them)

@@ -50,6 +50,9 @@ RSS_FEED_URL=https://your-sports-blog.com/feed.xml
 
 # Optional: Ko-fi integration
 KOFI_API_KEY=your_kofi_api_key_here
+
+# Optional: Configure RSS entry limit (default: 10)
+MAX_RSS_ENTRIES=20
 ```
 
 ### 3. Get API Keys

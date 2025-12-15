@@ -23,6 +23,10 @@ from dataclasses import dataclass, asdict
 import xml.etree.ElementTree as ET
 import feedparser
 
+# Constants
+MAX_RSS_ENTRIES = int(os.getenv('MAX_RSS_ENTRIES', '10'))  # Configurable RSS entry limit
+MIN_SUMMARY_LENGTH = 20  # Minimum valid summary length
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -46,9 +50,6 @@ class Post:
     thumbnail_url: Optional[str] = None
     published_at: Optional[str] = None
     monetization_flag: bool = False
-    
-    def to_dict(self) -> Dict[str, Any]:
-        return asdict(self)
 
 
 class APIConfig:
@@ -273,7 +274,7 @@ class RSSParser:
             feed = feedparser.parse(self.feed_url)
             
             posts = []
-            for entry in feed.entries[:10]:  # Limit to 10 most recent
+            for entry in feed.entries[:MAX_RSS_ENTRIES]:  # Limit to most recent
                 post = Post(
                     title=entry.get('title', 'Untitled'),
                     content=entry.get('summary', entry.get('description', '')),
@@ -496,7 +497,7 @@ class AutoPoster:
             logger.info("🤖 Attempting summary generation with Gemini...")
             summary = self.gemini.generate_summary(post.content, post.title)
             
-            if summary and len(summary) > 20:  # Validate output
+            if summary and len(summary) > MIN_SUMMARY_LENGTH:  # Validate output
                 logger.info("✅ Gemini summary successful")
                 return summary
             else:
@@ -507,7 +508,7 @@ class AutoPoster:
             logger.info("🔄 Using OpenAI fallback...")
             summary = self.openai.generate_summary(post.content, post.title)
             
-            if summary and len(summary) > 20:
+            if summary and len(summary) > MIN_SUMMARY_LENGTH:
                 logger.info("✅ OpenAI fallback successful")
                 return summary
         

@@ -1,0 +1,11 @@
+# Auto-Posting Script Dependencies
+# For GLOBAL SPORTS WATCH Gemini-powered auto-posting
+
+# HTTP requests for API calls
+requests>=2.31.0
+
+# RSS feed parsing
+feedparser>=6.0.10
+
+# Data validation and parsing
+python-dotenv>=1.0.0

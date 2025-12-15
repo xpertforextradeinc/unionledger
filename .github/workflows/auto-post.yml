@@ -1,0 +1,98 @@
+name: 🤖 Auto-Post Sports Content
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '0 */6 * * *'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in dry-run mode (no actual posting)'
+        required: false
+        default: 'false'
+
+jobs:
+  auto-post:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: ⬇️ Checkout code
+      uses: actions/checkout@v3
+    
+    - name: 🐍 Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: 📦 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: 🔐 Validate API keys
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        if [ -z "$GEMINI_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
+          echo "❌ Error: No API keys configured"
+          echo "Please add GEMINI_API_KEY or OPENAI_API_KEY to repository secrets"
+          exit 1
+        fi
+        
+        if [ -n "$GEMINI_API_KEY" ]; then
+          echo "✅ Gemini API key configured"
+        fi
+        
+        if [ -n "$OPENAI_API_KEY" ]; then
+          echo "✅ OpenAI API key configured (fallback)"
+        fi
+    
+    - name: 🚀 Run auto-posting script
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        RSS_FEED_URL: ${{ secrets.RSS_FEED_URL }}
+        KOFI_API_KEY: ${{ secrets.KOFI_API_KEY }}
+      run: |
+        echo "🤖 Starting auto-posting workflow..."
+        python auto_post.py
+    
+    - name: 📊 Display summary
+      if: always()
+      run: |
+        echo "📝 Processing Summary:"
+        if [ -f "publishing_audit.json" ]; then
+          echo "Total actions logged: $(cat publishing_audit.json | grep -o '"action"' | wc -l)"
+          echo "Successful posts: $(cat publishing_audit.json | grep -o '"success": true' | wc -l)"
+          echo "Failed posts: $(cat publishing_audit.json | grep -o '"success": false' | wc -l)"
+        else
+          echo "⚠️ No audit log generated"
+        fi
+    
+    - name: 📤 Upload audit logs
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: audit-logs-${{ github.run_number }}
+        path: |
+          auto_post_audit.log
+          publishing_audit.json
+          overlay_*.xml
+        retention-days: 30
+    
+    - name: 🔔 Notify on failure
+      if: failure()
+      run: |
+        echo "❌ Auto-posting workflow failed"
+        echo "Check the logs for details"
+        # Optional: Add notification via Discord/Slack/Email here
+    
+    - name: ✅ Success notification
+      if: success()
+      run: |
+        echo "✅ Auto-posting completed successfully"
+        echo "🎯 Check artifacts for detailed logs"

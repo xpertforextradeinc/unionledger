@@ -10,7 +10,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  attestations: write # <--- ADD THIS: Required for signing
+  attestations: write
 
 concurrency:
   group: "pages"
@@ -29,17 +29,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # --- NEW ATTESTATION STEP ---
+      # Security: Sign the build
       - name: Attest Build Provenance
         uses: actions/attest-build-provenance@v3.1.0
         with:
-          subject-path: '.' # Attests all files in the current directory
-      # ----------------------------
-
+          subject-path: './docs' # Only sign the docs folder
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: './docs' # <--- IMPORTANT: Point only to your docs folder
           
       - name: Deploy to GitHub Pages
         id: deployment

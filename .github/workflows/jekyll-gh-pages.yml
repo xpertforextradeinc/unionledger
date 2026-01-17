@@ -1,4 +1,3 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
 name: Deploy Jekyll with GitHub Pages dependencies preinstalled
 
 on:
@@ -6,45 +5,40 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
-  attestations: write # <--- ADDED: Required for provenance
+  attestations: write
 
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      
+
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./
-          destination: ./_site
+          source: ./docs        # <--- FIXED
+          destination: ./_site  # <--- OUTPUT
 
-      # --- INSERTED CODE START ---
       - name: Attest Build Provenance
         uses: actions/attest-build-provenance@v3.1.0
         with:
-          subject-path: './_site' # Attests the directory created by Jekyll
-      # --- INSERTED CODE END ---
+          subject-path: './_site'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages

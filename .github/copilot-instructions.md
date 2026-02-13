@@ -24,7 +24,7 @@ UnionLedger is a secure, audit-friendly modular online banking platform designed
 
 ### Backend
 - **Node.js 18+** with Express 5.x for HTTP server
-- **Python 3.11+** for payment processing and trading services
+- **Python 3.8+** for payment processing and trading services (httpx requires 3.8+)
 - **Web3.js 4.x** for blockchain wallet integration
 - **WebSocket (ws)** for real-time trading updates
 - **Axios** for external API calls
@@ -96,7 +96,10 @@ unionledger/
 
 **General Principles:**
 - Use **ES6+ syntax** (const/let, arrow functions, async/await)
-- **No semicolons** - Follow existing codebase convention
+- **No semicolons** - This codebase follows ASI (Automatic Semicolon Insertion)
+  - Existing code consistently omits semicolons
+  - Maintain this convention for consistency
+  - Be aware of ASI edge cases with return statements and line breaks
 - Use **camelCase** for variables and functions
 - Use **PascalCase** for classes
 - Keep functions **short and focused** (single responsibility)
@@ -483,9 +486,11 @@ PORT=3000 node server.js            # Start on custom port
 ### Known Issues and Workarounds
 
 **Web3 Integration:**
-- Web3 scripts (backend/testAlchemy.js, walletVerify.js) require Web3 v4 syntax fixes
-- Currently fails with "Web3 is not a constructor" error
-- Fix: `const { Web3 } = require('web3');` instead of `const Web3 = require('web3');`
+- Web3 scripts (backend/testAlchemy.js, walletVerify.js) currently have Web3 v4 syntax issues
+- Error: "Web3 is not a constructor"
+- **Fix required**: Change `const Web3 = require('web3');` to `const { Web3 } = require('web3');`
+- These scripts are non-critical to core banking functionality
+- Issue tracked for future resolution
 
 **File Path Issues:**
 - Some files use emoji prefixes (`🧾 src/`, `⚙️ config/`, `📘 docs/`)

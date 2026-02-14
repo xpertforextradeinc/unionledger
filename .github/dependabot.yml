@@ -1,0 +1,73 @@
+version: 2
+updates:
+  # JavaScript/Node.js (npm)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "[global.press0][npm]"
+      include: "scope"
+    assignees:
+      - "xpertforextradeinc"
+    labels:
+      - "dependencies"
+      - "npm"
+      - "audit"
+    open-pull-requests-limit: 5
+
+  # Python (pip)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "all"
+    commit-message:
+      prefix: "[global.press0][pip]"
+      include: "scope"
+    assignees:
+      - "xpertforextradeinc"
+    labels:
+      - "dependencies"
+      - "pip"
+      - "audit"
+    open-pull-requests-limit: 5
+
+  # GitHub Actions workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "xpertforextradeinc"
+    labels:
+      - "dependencies"
+      - "ci"
+      - "audit"
+    open-pull-requests-limit: 5
+
+  # PHP (Composer)
+  - package-ecosystem: "composer"
+    directory: "/"                   # Add if composer.json exists
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "xpertforextradeinc"
+    labels:
+      - "dependencies"
+      - "php"
+      - "audit"
+    open-pull-requests-limit: 2
+
+# Advanced Copilot extras:
+# - Configure Slack notifications via GitHub Actions for all Dependabot PR update events
+# - Set up security-only update blocks with `security-updates: true` if needed
+# - Replicate blocks for subfolders in monorepo (e.g. `/frontend`, `/backend`)
+# - Prefix all commit messages and labels for audit-friendly and branded traceability
+
+# For dashboard/portal scalability, use branded prefixes (e.g., [global.press0], [SlipMint], [PayMint]) and labels across flows.
+
+# Docs: https://docs.github.com/code-security/dependabot/configuration-options-for-the-dependabot.yml-file

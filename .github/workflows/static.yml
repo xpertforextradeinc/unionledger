@@ -36,7 +36,7 @@ jobs:
           subject-path: './docs' # Only sign the docs folder
       
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: './docs' # <--- IMPORTANT: Point only to your docs folder
           

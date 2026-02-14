@@ -32,7 +32,7 @@ jobs:
           destination: ./_site  # <--- OUTPUT
 
       - name: Attest Build Provenance
-        uses: actions/attest-build-provenance@v3.1.0
+        uses: actions/attest-build-provenance@v3.2.0
         with:
           subject-path: './_site'
 

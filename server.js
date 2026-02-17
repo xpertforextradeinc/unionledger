@@ -5,8 +5,8 @@ const WebSocket = require('ws');
 const http = require('http');
 
 // Alerts + Wallet Ledger
-const { sendSlackAlert, logEvent } = require('./backend/alerts');
-const { getBalance, updateBalance } = require('./backend/utils/wallets');
+const { sendSlackAlert, logEvent } = require('./backend/🚨 backend/alerts')
+const { getBalance, updateBalance } = require('./backend/utils/wallets')
 
 const app = express();
 const server = http.createServer(app);
@@ -21,23 +21,23 @@ app.get('/', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'dashboard.html'));
+  res.sendFile(path.join(__dirname, '🧾 src', 'dashboard.html'));
 });
 
 app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'register.html'));
+  res.sendFile(path.join(__dirname, '🧾 src', 'register.html'));
 });
 
 app.get('/transfer', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'transfer.html'));
+  res.sendFile(path.join(__dirname, '🧾 src', 'transfer.html'));
 });
 
 app.get('/trading', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'trading.html'));
+  res.sendFile(path.join(__dirname, '🧾 src', 'trading.html'));
 });
 
 app.get('/audit', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src', 'audit.html'));
+  res.sendFile(path.join(__dirname, '🧾 src', 'audit.html'));
 });
 
 // API Routes

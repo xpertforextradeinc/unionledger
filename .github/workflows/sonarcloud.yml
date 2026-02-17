@@ -1,7 +1,9 @@
 - name: SonarCloud Scan
   uses: SonarSource/sonarcloud-github-action@v5
+  env:
+    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   with:
     args: >
+      -Dsonar.projectKey=xpertforextradeinc_unionledger
+      -Dsonar.organization=xpertforextradeinc
       -Dsonar.python.version=3.10
-      -Dsonar.projectKey=your-project-key
-      -Dsonar.organization=your-org

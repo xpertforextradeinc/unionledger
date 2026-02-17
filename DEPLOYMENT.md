@@ -29,6 +29,7 @@ npm install
 
 This will install all required packages:
 - express (Web server)
+- express-rate-limit (DDoS protection)
 - web3 (Blockchain integration)
 - axios (HTTP client)
 - ws (WebSocket support)
@@ -152,9 +153,23 @@ Once deployed, your application will be available at:
 
 ## 🔒 Security Considerations
 
+### Rate Limiting
+
+UnionLedger includes built-in rate limiting to protect against DDoS attacks:
+- 100 requests per IP address per 15 minutes
+- Applies to all routes (API and static files)
+- Returns HTTP 429 (Too Many Requests) when limit is exceeded
+
 ### Environment Variables
 
 Never commit the `.env` file to version control. It's already in `.gitignore`.
+
+### Input Validation
+
+All API endpoints validate inputs:
+- Wallet addresses must start with "0x"
+- Transaction amounts must be positive numbers
+- Required fields are checked before processing
 
 ### HTTPS
 

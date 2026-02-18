@@ -13,7 +13,7 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(express.json());
-app.use(express.static('.'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static HTML files
 app.get('/', (req, res) => {

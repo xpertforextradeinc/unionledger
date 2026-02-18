@@ -28,6 +28,6 @@ jobs:
             -Dsonar.projectKey=xpertforextradeinc_unionledger
             -Dsonar.organization=xpertforextradeinc
             -Dsonar.python.version=3.8,3.9,3.10,3.11
-            -Dsonar.sources=src,backend,services
+            -Dsonar.sources="src,backend,services,🧾 src"
             -Dsonar.exclusions=**/node_modules/**,**/*.test.js
             -Dsonar.javascript.node.maxspace=4096

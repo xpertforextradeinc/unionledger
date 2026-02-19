@@ -1,0 +1,14 @@
+# Cloud Build configuration for building and pushing a Docker image
+# This file tells Google Cloud Build how to build your application.
+
+steps:
+  # Step 1: Build the Docker image
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/app', '.']
+
+  # Step 2: Push the image to Google Container Registry
+  - name: gcr.io/cloud-builders/docker
+    args: ['push', 'gcr.io/$PROJECT_ID/app']
+
+images:
+  - gcr.io/$PROJECT_ID/app

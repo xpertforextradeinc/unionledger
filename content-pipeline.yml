@@ -1,0 +1,44 @@
+name: Content Generation Pipeline
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday 9 AM UTC
+  workflow_dispatch:
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate content with Gemini API
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node automation/gemini-content-gen.js
+
+      - name: Inject monetization links
+        env:
+          AFFILIATE_CONFIG: ${{ secrets.AFFILIATE_CONFIG }}
+        run: node automation/monetization-injector.js
+
+      - name: Commit and push to gh-pages
+        run: |
+          git config user.name "global.press0-bot"
+          git config user.email "bot@global.press0"
+          git add public/
+          git commit -m "🚀 Content drop: $(date +'%Y-%m-%d')" || echo "No changes"
+          git push origin main
+
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: node automation/slack-notifier.js --event content-published

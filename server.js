@@ -4,6 +4,10 @@ const path = require('path');
 const WebSocket = require('ws');
 const http = require('http');
 
+// Alerts + Wallet Ledger
+const { sendSlackAlert, logEvent } = require('./backend/alerts');
+const { getBalance, updateBalance } = require('./backend/utils/wallets');
+
 const app = express();
 const server = http.createServer(app);
 
@@ -17,29 +21,36 @@ app.get('/', (req, res) => {
 });
 
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, '🧾 src', 'dashboard.html'));
+  res.sendFile(path.join(__dirname, 'src', 'dashboard.html'));
 });
 
 app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname, '🧾 src', 'register.html'));
+  res.sendFile(path.join(__dirname, 'src', 'register.html'));
 });
 
 app.get('/transfer', (req, res) => {
-  res.sendFile(path.join(__dirname, '🧾 src', 'transfer.html'));
+  res.sendFile(path.join(__dirname, 'src', 'transfer.html'));
 });
 
 app.get('/trading', (req, res) => {
-  res.sendFile(path.join(__dirname, '🧾 src', 'trading.html'));
+  res.sendFile(path.join(__dirname, 'src', 'trading.html'));
 });
 
 app.get('/audit', (req, res) => {
-  res.sendFile(path.join(__dirname, '🧾 src', 'audit.html'));
+  res.sendFile(path.join(__dirname, 'src', 'audit.html'));
 });
 
 // API Routes
 const { verifyWallet, verifyKYC } = require('./backend/auth');
 const { deposit, withdraw, transfer } = require('./backend/transactions');
-const { startBot, stopBot, getBotStatus, getTradingHistory, updateStrategy, getBotInstance } = require('./backend/tradingBot');
+const { 
+  startBot, 
+  stopBot, 
+  getBotStatus, 
+  getTradingHistory, 
+  updateStrategy, 
+  getBotInstance 
+} = require('./backend/tradingBot');
 
 // Auth endpoints
 app.post('/api/auth/wallet', async (req, res) => {
@@ -88,6 +99,43 @@ app.post('/api/tx/transfer', async (req, res) => {
     res.json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// Internal wallet balance lookup
+app.get('/api/wallet/balance/:wallet', (req, res) => {
+  const balance = getBalance(req.params.wallet);
+  res.json({ wallet: req.params.wallet, balance });
+});
+
+// Paystack Webhook
+app.post('/api/paystack/webhook', async (req, res) => {
+  if (!verifyPaystackSignature(req)) {
+    return res.status(401).json({ error: 'Invalid signature' });
+  }
+
+  const event = req.body;
+
+  try {
+    logEvent("Paystack Webhook", `Event received: ${event.event}`);
+    sendSlackAlert(`Paystack event: ${event.event}`);
+
+    if (event.event === "charge.success") {
+      const email = event.data.customer.email;
+      const amount = event.data.amount / 100;
+
+      // Update internal wallet ledger
+      updateBalance(email, amount);
+
+      // Alerts
+      sendSlackAlert(`💰 Deposit credited: ${email} +₦${amount}`);
+      logEvent("Deposit", `${email} credited with ₦${amount}`);
+    }
+
+    res.status(200).json({ status: "ok" });
+  } catch (err) {
+    console.error('[Paystack] Webhook error:', err.message);
+    res.status(500).json({ error: 'Webhook processing failed' });
   }
 });
 

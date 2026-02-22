@@ -1,0 +1,30 @@
+name: Slack Notifications
+
+on:
+  issues:
+    types: [opened, assigned]
+  pull_request:
+    types: [opened, ready_for_review]
+  workflow_dispatch:
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Send Slack alert
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          EVENT_TYPE: ${{ github.event_name }}
+          EVENT_DATA: ${{ toJson(github.event) }}
+        run: node automation/slack-notifier.js --event github-activity

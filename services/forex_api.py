@@ -19,38 +19,38 @@ def get_eur_usd_rate() -> float | None:
     Returns:
         The exchange rate as a float, or None if an error occurs.
     """
-    api_key = os.getenv("ALPHAVANTAGE_API_KEY")
-    if not api_key:
+    alphavantage_api_key = os.getenv("ALPHAVANTAGE_API_KEY")
+    if not alphavantage_api_key:
         logging.error("AlphaVantage API key not found in .env file.")
         return None
 
-    url = (
+    exchange_rate_api_url = (
         "https://www.alphavantage.co/query"
         "?function=CURRENCY_EXCHANGE_RATE"
         "&from_currency=EUR"
         "&to_currency=USD"
-        f"&apikey={api_key}"
+        f"&apikey={alphavantage_api_key}"
     )
 
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(url)
+            response = await client.get(exchange_rate_api_url)
             response.raise_for_status()  # Raises an exception for 4XX/5XX responses
 
-            data = response.json()
+            response_data = response.json()
 
             # --- Graceful API Error Handling ---
-            if "Realtime Currency Exchange Rate" not in data:
-                error_message = data.get("Error Message", "Unknown API error")
+            if "Realtime Currency Exchange Rate" not in response_data:
+                error_message = response_data.get("Error Message", "Unknown API error")
                 logging.error(f"AlphaVantage API error: {error_message}")
                 return None
 
-            exchange_rate_data = data["Realtime Currency Exchange Rate"]
-            price_str = exchange_rate_data.get("5. Exchange Rate")
+            exchange_rate_data = response_data["Realtime Currency Exchange Rate"]
+            exchange_rate_str = exchange_rate_data.get("5. Exchange Rate")
 
-            if price_str:
-                logging.info(f"Successfully fetched EUR/USD rate: {price_str}")
-                return float(price_str)
+            if exchange_rate_str:
+                logging.info(f"Successfully fetched EUR/USD rate: {exchange_rate_str}")
+                return float(exchange_rate_str)
             else:
                 logging.error("Could not parse exchange rate from API response.")
                 return None

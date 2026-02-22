@@ -10,9 +10,9 @@ class TradingBot extends EventEmitter {
     this.positions = new Map();
     this.marketData = new Map();
     this.balance = 10000; // Demo balance in USD
-    this.riskLimit = 0.02; // 2% risk per trade
-    this.updateInterval = 5000; // 5 seconds for demo purposes
-    this.intervalId = null;
+    this.riskPerTradeRatio = 0.02; // 2% risk per trade
+    this.marketDataPollingIntervalMs = 5000; // 5 seconds for demo purposes
+    this.marketDataPollingIntervalId = null;
   }
 
   // Start the trading bot
@@ -29,9 +29,9 @@ class TradingBot extends EventEmitter {
     this.initializeStrategies();
     
     // Start real-time market data polling
-    this.intervalId = setInterval(() => {
+    this.marketDataPollingIntervalId = setInterval(() => {
       this.fetchMarketData();
-    }, this.updateInterval);
+    }, this.marketDataPollingIntervalMs);
 
     this.emit('botStarted', { timestamp: new Date().toISOString() });
     return { status: "success", message: "Trading bot started", balance: this.balance };
@@ -45,9 +45,9 @@ class TradingBot extends EventEmitter {
     }
 
     this.isActive = false;
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
+    if (this.marketDataPollingIntervalId) {
+      clearInterval(this.marketDataPollingIntervalId);
+      this.marketDataPollingIntervalId = null;
     }
 
     console.log("🤖 Stopping UnionLedger Trading Bot...");
@@ -149,7 +149,7 @@ class TradingBot extends EventEmitter {
   // Generate trading signals based on strategy
   generateTradingSignal(strategyKey, symbol, marketData) {
     // Simplified signal generation for demo
-    const price = marketData.price;
+    const currentPrice = marketData.price;
     const change = parseFloat(marketData.change);
     
     if (strategyKey === 'SMA') {
@@ -174,14 +174,14 @@ class TradingBot extends EventEmitter {
   // Execute trading orders
   async executeTrade(symbol, signal) {
     const currentPrice = this.marketData.get(symbol).price;
-    const riskAmount = this.balance * this.riskLimit;
-    const quantity = (riskAmount / currentPrice).toFixed(6);
+    const maxRiskAmountUsd = this.balance * this.riskPerTradeRatio;
+    const tradeQuantity = (maxRiskAmountUsd / currentPrice).toFixed(6);
 
     const trade = {
       id: Date.now().toString(),
       symbol,
       action: signal.action,
-      quantity: parseFloat(quantity),
+      quantity: parseFloat(tradeQuantity),
       price: currentPrice,
       timestamp: new Date().toISOString(),
       strategy: 'Automated',
@@ -197,8 +197,8 @@ class TradingBot extends EventEmitter {
     }
 
     // Store position
-    const positionKey = `${symbol}_${Date.now()}`;
-    this.positions.set(positionKey, trade);
+    const tradePositionKey = `${symbol}_${Date.now()}`;
+    this.positions.set(tradePositionKey, trade);
 
     console.log(`🔄 Executed ${signal.action} order:`, trade);
     
@@ -226,12 +226,12 @@ class TradingBot extends EventEmitter {
 
   // Get trading history
   getTradingHistory(limit = 50) {
-    const trades = Array.from(this.positions.values())
+    const sortedTrades = Array.from(this.positions.values())
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
       .slice(0, limit);
     
     return {
-      trades,
+      trades: sortedTrades,
       totalTrades: this.positions.size,
       currentBalance: parseFloat(this.balance.toFixed(2))
     };

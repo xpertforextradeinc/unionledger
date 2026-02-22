@@ -13,37 +13,37 @@ const prompts = [
 
 async function generateContent(prompt) {
   return new Promise((resolve, reject) => {
-    const data = JSON.stringify({
+    const requestPayload = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }]
     });
 
-    const options = {
+    const requestOptions = {
       hostname: 'generativelanguage.googleapis.com',
       path: `/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': data.length
+        'Content-Length': requestPayload.length
       }
     };
 
-    const req = https.request(options, (res) => {
-      let body = '';
-      res.on('data', (chunk) => body += chunk);
+    const httpsRequest = https.request(requestOptions, (res) => {
+      let responseBody = '';
+      res.on('data', (chunk) => responseBody += chunk);
       res.on('end', () => {
         try {
-          const response = JSON.parse(body);
-          const text = response.candidates[0].content.parts[0].text;
-          resolve(text);
+          const response = JSON.parse(responseBody);
+          const generatedText = response.candidates[0].content.parts[0].text;
+          resolve(generatedText);
         } catch (err) {
           reject(err);
         }
       });
     });
 
-    req.on('error', reject);
-    req.write(data);
-    req.end();
+    httpsRequest.on('error', reject);
+    httpsRequest.write(requestPayload);
+    httpsRequest.end();
   });
 }
 

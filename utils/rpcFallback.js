@@ -1,6 +1,6 @@
 const Web3 = require('web3'); // Ensure web3 is installed and required
 
-const endpoints = [
+const rpcEndpoints = [
   'https://.../ethereum-mainnet/rpc',
   'https://.../ethereum-sepolia/rpc',
   'https://.../ethereum-holesky/rpc'
@@ -13,15 +13,15 @@ const endpoints = [
  * @throws If all endpoints fail.
  */
 async function getBalanceWithFallback(address) {
-  for (const url of endpoints) {
+  for (const rpcEndpointUrl of rpcEndpoints) {
     try {
-      const web3 = new Web3(url);
-      const balance = await web3.eth.getBalance(address);
-      if (balance !== undefined && balance !== null) {
-        return balance;
+      const web3 = new Web3(rpcEndpointUrl);
+      const walletBalance = await web3.eth.getBalance(address);
+      if (walletBalance !== undefined && walletBalance !== null) {
+        return walletBalance;
       }
-    } catch (err) {
-      logError(`RPC failed: ${url}`, err);
+    } catch (rpcConnectionError) {
+      logError(`RPC failed: ${rpcEndpointUrl}`, rpcConnectionError);
     }
   }
   throw new Error("All RPC endpoints failed.");

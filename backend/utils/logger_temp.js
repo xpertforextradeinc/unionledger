@@ -8,8 +8,8 @@ function logError(action, reason) {
   console.warn(`❌ ${action.toUpperCase()} FAILED | Reason: ${reason}`);
 }
 
-function logTransfer(from, to, amount) {
-  console.log(`🔁 TRANSFER | From: ${from} → To: ${to} | Amount: $${amount}`);
+function logTransfer(fromWallet, toWallet, amount) {
+  console.log(`🔁 TRANSFER | From: ${fromWallet} → To: ${toWallet} | Amount: $${amount}`);
 }
 
 function logInfo(message) {

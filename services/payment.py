@@ -46,14 +46,14 @@ class FlutterwaveService:
                 f"{FLW_BASE_URL}/payments", headers=self.headers, json=payload
             )
 
-        data = response.json()
-        if response.status_code == 200 and data.get("status") == "success":
-            checkout_url = data["data"]["link"]
+        response_data = response.json()
+        if response.status_code == 200 and response_data.get("status") == "success":
+            checkout_url = response_data["data"]["link"]
             logger.info(f"Payment initialized: {checkout_url}")
             return checkout_url
         else:
-            logger.error(f"Payment init failed: {data}")
-            return data
+            logger.error(f"Payment init failed: {response_data}")
+            return response_data
 
     async def verify_payment(self, transaction_id: str):
         """
@@ -67,10 +67,10 @@ class FlutterwaveService:
                 headers=self.headers,
             )
 
-        data = response.json()
-        if response.status_code == 200 and data.get("status") == "success":
-            logger.info(f"Payment verified: {data}")
-            return data
+        response_data = response.json()
+        if response.status_code == 200 and response_data.get("status") == "success":
+            logger.info(f"Payment verified: {response_data}")
+            return response_data
         else:
-            logger.error(f"Payment verification failed: {data}")
-            return data
+            logger.error(f"Payment verification failed: {response_data}")
+            return response_data

@@ -190,49 +190,49 @@ app.post('/api/trading/strategy/:strategyKey', async (req, res) => {
 const PORT = process.env.PORT || 8080;
 
 // WebSocket server for real-time trading updates
-const wss = new WebSocket.Server({ server, path: '/trading-ws' });
+const tradingWebSocketServer = new WebSocket.Server({ server, path: '/trading-ws' });
 
-wss.on('connection', (ws) => {
+tradingWebSocketServer.on('connection', (webSocketClient) => {
   console.log('🔌 Trading WebSocket client connected');
   
   // Send current bot status on connection
-  const status = getBotStatus();
-  ws.send(JSON.stringify({ type: 'status', data: status }));
+  const initialBotStatus = getBotStatus();
+  webSocketClient.send(JSON.stringify({ type: 'status', data: initialBotStatus }));
   
-  ws.on('close', () => {
+  webSocketClient.on('close', () => {
     console.log('🔌 Trading WebSocket client disconnected');
   });
 });
 
 // Setup real-time event listeners for trading bot
-const botInstance = getBotInstance();
+const tradingBotInstance = getBotInstance();
 
-botInstance.on('marketUpdate', (data) => {
-  wss.clients.forEach(client => {
+tradingBotInstance.on('marketUpdate', (data) => {
+  tradingWebSocketServer.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify({ type: 'marketUpdate', data }));
     }
   });
 });
 
-botInstance.on('tradeExecuted', (data) => {
-  wss.clients.forEach(client => {
+tradingBotInstance.on('tradeExecuted', (data) => {
+  tradingWebSocketServer.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify({ type: 'tradeExecuted', data }));
     }
   });
 });
 
-botInstance.on('botStarted', (data) => {
-  wss.clients.forEach(client => {
+tradingBotInstance.on('botStarted', (data) => {
+  tradingWebSocketServer.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify({ type: 'botStarted', data }));
     }
   });
 });
 
-botInstance.on('botStopped', (data) => {
-  wss.clients.forEach(client => {
+tradingBotInstance.on('botStopped', (data) => {
+  tradingWebSocketServer.clients.forEach(client => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify({ type: 'botStopped', data }));
     }

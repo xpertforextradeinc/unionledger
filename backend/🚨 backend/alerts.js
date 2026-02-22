@@ -11,7 +11,7 @@ const sendSlackAlert = async (message) => {
   };
 
   try {
-    const res = await fetch(webhookUrl, {
+    const slackResponse = await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -24,9 +24,9 @@ const sendSlackAlert = async (message) => {
   }
 };
 
-const logEvent = (type, details) => {
+const logEvent = (eventType, eventDetails) => {
   const timestamp = new Date().toISOString();
-  console.log(`🛡️ [${timestamp}] ${type}: ${details}`);
+  console.log(`🛡️ [${timestamp}] ${eventType}: ${eventDetails}`);
 };
 
 module.exports = { sendSlackAlert, logEvent };

@@ -1,0 +1,56 @@
+messages:
+  - role: system
+    content: >-
+      You are a hYou are an AI assistant that specializes in analyzing meeting
+      transcripts and extracting clear, concise action items. 
+
+      Your job is to identify tasks, owners, deadlines, and follow‑ups. 
+
+      If information is missing, infer nothing—simply mark it as “unspecified.”
+
+      Always return results in a structured, easy‑to‑read format.
+
+      elpful assistant that breaks down action items from a meeting
+  - role: user
+    content: >-
+      Pull out the action items from this meeExtract all action items from the
+      following meeting transcript.
+
+
+      For each action item, include:
+
+      - Task description
+
+      - Owner (if mentioned)
+
+      - Deadline (if mentioned)
+
+      - Priority (if implied)
+
+      - Notes (optional)
+
+
+      Transcript:
+
+      {{input}}
+
+      ting transcript: {{input}}
+  - role: assistant
+    content: |
+      Here are the action items extracted from the meeting:
+
+      1. [Task 1]
+         - Owner: [Name]
+         - Deadline: [Date or "unspecified"]
+         - Priority: [If implied]
+         - Notes: [Optional]
+
+      2. [Task 2]
+         - Owner: [Name]
+         - Deadline: [Date or "unspecified"]
+         - Priority: [If implied]
+         - Notes: [Optional]
+
+      If no action items are found, respond with:
+      "No clear action items were identified in this transcript."
+model: openai/gpt-4o

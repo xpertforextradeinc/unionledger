@@ -1,21 +1,50 @@
-# Security Policy
+# Security Policy (UnionLedger)
+
+UnionLedger is a security-first banking + wallet platform. We take vulnerabilities seriously and aim to keep reports confidential until a fix is available.
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+We recommend running the latest commit on the default branch and keeping dependencies patched.
+Security fixes are applied to the latest stable release line.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version/Branch | Supported |
+| --- | --- |
+| main (latest) | ✅ |
+| older releases | ⚠️ best-effort |
+| unmaintained forks | ❌ |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+### ✅ Where to report
+- **Preferred:** GitHub **Private Vulnerability Reporting** (Security tab → “Report a vulnerability”)
+- **Fallback email:** security@yourdomain.tld
+- **Do not** open public issues for security bugs.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+### ✅ What to include
+- A clear description and impact
+- Steps to reproduce / proof of concept (if safe)
+- Affected file/module (e.g., `backend/transactions.js`, `services/payment.py`)
+- Any logs/screenshots (remove secrets)
+
+### Response targets (best-effort)
+- Acknowledgement: **within 72 hours**
+- Status update: **within 7 days**
+- Fix or mitigation plan: **within 30 days** (severity dependent)
+
+## Safe Harbor
+If you follow this policy and act in good faith, we will not pursue legal action.
+
+## Disclosure
+We coordinate a fix before public disclosure. Critical issues may trigger rapid patch releases and secret rotation.
+
+## Scope
+In scope:
+- Authentication / KYC flows
+- Transaction processing, trading bot, webhook handlers
+- Wallet/RPC fallback logic
+- CI/CD and deployment configs
+
+Out of scope:
+- DoS via high traffic
+- Issues requiring physical access
+- Social engineering

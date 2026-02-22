@@ -192,6 +192,16 @@ const PORT = process.env.PORT || 8080;
 // WebSocket server for real-time trading updates
 const wss = new WebSocket.Server({ server, path: '/trading-ws' });
 
+// Broadcast a typed message to all connected WebSocket clients
+const broadcast = (type, data) => {
+  const payload = JSON.stringify({ type, data });
+  wss.clients.forEach(client => {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(payload);
+    }
+  });
+};
+
 wss.on('connection', (ws) => {
   console.log('🔌 Trading WebSocket client connected');
   
@@ -208,35 +218,19 @@ wss.on('connection', (ws) => {
 const botInstance = getBotInstance();
 
 botInstance.on('marketUpdate', (data) => {
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({ type: 'marketUpdate', data }));
-    }
-  });
+  broadcast('marketUpdate', data);
 });
 
 botInstance.on('tradeExecuted', (data) => {
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({ type: 'tradeExecuted', data }));
-    }
-  });
+  broadcast('tradeExecuted', data);
 });
 
 botInstance.on('botStarted', (data) => {
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({ type: 'botStarted', data }));
-    }
-  });
+  broadcast('botStarted', data);
 });
 
 botInstance.on('botStopped', (data) => {
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({ type: 'botStopped', data }));
-    }
-  });
+  broadcast('botStopped', data);
 });
 
 server.listen(PORT, () => {

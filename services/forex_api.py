@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # This will load the .env file from the project root
 load_dotenv()
 
-def get_eur_usd_rate() -> float | None:
+async def get_eur_usd_rate() -> float | None:
     """
     Fetches the latest EUR/USD exchange rate from AlphaVantage asynchronously.
 

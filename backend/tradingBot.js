@@ -90,10 +90,11 @@ class TradingBot extends EventEmitter {
       // In production, this would connect to real APIs like Binance, Coinbase, etc.
       const symbols = ['BTC/USD', 'ETH/USD', 'MATIC/USD'];
       
-      for (const symbol of symbols) {
+      // Collect market snapshots synchronously to avoid stale prevPrice reads
+      const updates = symbols.map((symbol) => {
         const price = this.generateMockPrice(symbol);
         const prevPrice = this.marketData.get(symbol)?.price || price;
-        
+
         const marketUpdate = {
           symbol,
           price,
@@ -103,10 +104,13 @@ class TradingBot extends EventEmitter {
         };
 
         this.marketData.set(symbol, marketUpdate);
-        
-        // Analyze for trading opportunities
-        await this.analyzeMarket(symbol, marketUpdate);
-      }
+        return marketUpdate;
+      });
+
+      // Analyse all symbols in parallel now that marketData is up to date
+      await Promise.all(updates.map((marketUpdate) =>
+        this.analyzeMarket(marketUpdate.symbol, marketUpdate)
+      ))
 
       // Emit market data update
       this.emit('marketUpdate', Object.fromEntries(this.marketData));

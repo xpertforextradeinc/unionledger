@@ -1,4 +1,4 @@
-const Web3 = require('web3'); // Ensure web3 is installed and required
+const { Web3 } = require('web3'); // web3 v4 uses named export
 
 const endpoints = [
   'https://.../ethereum-mainnet/rpc',

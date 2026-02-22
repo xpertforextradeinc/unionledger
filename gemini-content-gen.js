@@ -55,11 +55,12 @@ async function main() {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  for (let i = 0; i < prompts.length; i++) {
+  const runId = Date.now();
+  await Promise.all(prompts.map(async (prompt, i) => {
     try {
       console.log(`Generating content ${i + 1}/${prompts.length}...`);
-      const content = await generateContent(prompts[i]);
-      const filename = `content-${Date.now()}-${i}.html`;
+      const content = await generateContent(prompt);
+      const filename = `content-${runId}-${i}.html`;
       const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -79,13 +80,13 @@ async function main() {
 </body>
 </html>
       `.trim();
-      
+
       fs.writeFileSync(path.join(outputDir, filename), html);
       console.log(`✅ Saved: ${filename}`);
     } catch (err) {
       console.error(`❌ Error generating content ${i + 1}:`, err.message);
     }
-  }
+  }))
   
   console.log('✨ Content generation complete!');
 }

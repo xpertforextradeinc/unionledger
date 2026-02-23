@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const WebSocket = require('ws');
 const http = require('http');
+const rateLimit = require('express-rate-limit');
 
 // Alerts + Wallet Ledger
 const { sendSlackAlert, logEvent } = require('./backend/alerts');
@@ -14,6 +15,14 @@ const server = http.createServer(app);
 // Middleware
 app.use(express.json());
 app.use(express.static('.'));
+
+// Rate limiting for Paystack webhook to mitigate abuse / DoS
+const paystackWebhookLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,                 // limit each IP to 100 webhook requests per window
+  standardHeaders: true,    // return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false,     // disable the `X-RateLimit-*` headers
+});
 
 // Serve static HTML files
 app.get('/', (req, res) => {
@@ -109,7 +118,7 @@ app.get('/api/wallet/balance/:wallet', (req, res) => {
 });
 
 // Paystack Webhook
-app.post('/api/paystack/webhook', async (req, res) => {
+app.post('/api/paystack/webhook', paystackWebhookLimiter, async (req, res) => {
   if (!verifyPaystackSignature(req)) {
     return res.status(401).json({ error: 'Invalid signature' });
   }

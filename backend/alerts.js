@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * UnionLedger Alerts + Audit Logger
  * - Safe defaults (won't crash if Slack isn't configured)

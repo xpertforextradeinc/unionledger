@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * UnionLedger Alerts + Audit Logger
@@ -6,17 +6,17 @@
  * - Uses SLACK_WEBHOOK_URL if present
  */
 
-const axios = require('axios');
+const axios = require('axios')
 
 function nowISO() {
-  return new Date().toISOString();
+  return new Date().toISOString()
 }
 
 function safeStringify(obj) {
   try {
-    return JSON.stringify(obj);
+    return JSON.stringify(obj)
   } catch {
-    return '[unstringifiable]';
+    return '[unstringifiable]'
   }
 }
 
@@ -31,10 +31,10 @@ function logEvent(event, meta = {}) {
     brand: 'UnionLedger',
     event,
     meta,
-  };
+  }
 
   // Keep logs machine-parseable for later SIEM ingestion
-  console.log(safeStringify(payload));
+  console.log(safeStringify(payload))
 }
 
 /**
@@ -48,7 +48,7 @@ function logEvent(event, meta = {}) {
  * @param {object} [params.context]
  */
 async function sendSlackAlert({ title, severity = 'warning', message = '', context = {} }) {
-  const url = process.env.SLACK_WEBHOOK_URL;
+  const url = process.env.SLACK_WEBHOOK_URL
 
   const fallback = () => {
     console.warn(
@@ -58,12 +58,12 @@ async function sendSlackAlert({ title, severity = 'warning', message = '', conte
         event: 'slack.alert.skipped',
         meta: { reason: url ? 'send_failed' : 'SLACK_WEBHOOK_URL_not_set', title, severity, message, context },
       })
-    );
-  };
+    )
+  }
 
   if (!url) {
-    fallback();
-    return { ok: false, skipped: true, reason: 'SLACK_WEBHOOK_URL_not_set' };
+    fallback()
+    return { ok: false, skipped: true, reason: 'SLACK_WEBHOOK_URL_not_set' }
   }
 
   const textLines = [
@@ -73,29 +73,29 @@ async function sendSlackAlert({ title, severity = 'warning', message = '', conte
     message ? `Message: ${message}` : null,
     Object.keys(context || {}).length ? `Context: \`${safeStringify(context)}\`` : null,
     `Time: ${nowISO()}`,
-  ].filter(Boolean);
+  ].filter(Boolean)
 
   try {
     const res = await axios.post(
       url,
       { text: textLines.join('\n') },
       { timeout: 8000 }
-    );
+    )
 
-    logEvent('slack.alert.sent', { title, severity, status: res.status });
-    return { ok: true };
+    logEvent('slack.alert.sent', { title, severity, status: res.status })
+    return { ok: true }
   } catch (err) {
     logEvent('slack.alert.failed', {
       title,
       severity,
       error: err?.message || String(err),
-    });
-    fallback();
-    return { ok: false, error: err?.message || String(err) };
+    })
+    fallback()
+    return { ok: false, error: err?.message || String(err) }
   }
 }
 
 module.exports = {
   logEvent,
   sendSlackAlert,
-};
+}

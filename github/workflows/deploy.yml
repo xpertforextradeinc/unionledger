@@ -13,5 +13,6 @@ jobs:
       - run: npm ci
       - run: node --version && npm --version
       - run: npm start & sleep 5
+      - run: curl --fail http://localhost:8080/ || exit 1
       - run: curl -s http://localhost:8080/api/trading/status || exit 1
       # Optionally: Add deployment commands (Railway, Render deploy hooks)

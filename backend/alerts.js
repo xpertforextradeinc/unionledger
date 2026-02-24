@@ -61,7 +61,7 @@ async function sendSlackAlert({ title, severity = 'warning', message = '', conte
 
   if (!url) {
     fallback();
-    return { ok: false, skipped: true, reason: 'SLACK_WEBHOOK_URL_not_set' };
+    return { status: 'error', message: 'SLACK_WEBHOOK_URL_not_set' };
   }
 
   const textLines = [
@@ -81,7 +81,7 @@ async function sendSlackAlert({ title, severity = 'warning', message = '', conte
     );
 
     logEvent('slack.alert.sent', { title, severity, status: res.status });
-    return { ok: true };
+    return { status: 'success' };
   } catch (err) {
     logEvent('slack.alert.failed', {
       title,
@@ -89,7 +89,7 @@ async function sendSlackAlert({ title, severity = 'warning', message = '', conte
       error: err?.message || String(err),
     });
     fallback();
-    return { ok: false, error: err?.message || String(err) };
+    return { status: 'error', message: err?.message || String(err) };
   }
 }
 

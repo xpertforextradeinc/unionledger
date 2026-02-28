@@ -1,14 +1,18 @@
 // 🔄 UnionLedger — Ethereum RPC Fallback Utility
 const { Web3 } = require('web3');
 
-// Example RPC endpoints - can be replaced with actual URLs as needed
+// Example RPC endpoints - configurable via environment variables
+const GOOGLE_ETH_MAINNET_RPC = process.env.GOOGLE_ETH_MAINNET_RPC;
+const ALCHEMY_KEY = process.env.ALCHEMY_KEY;
+const INFURA_KEY = process.env.INFURA_KEY;
+
 const RPC_ENDPOINTS = [
-  'https://blockchain.googleapis.com/v1/projects/xpert-forex-trade/.../ethereum-mainnet/rpc',
-  'https://eth-mainnet.alchemyapi.io/v2/demo',
-  'https://mainnet.infura.io/v3/demo',
+  GOOGLE_ETH_MAINNET_RPC,
+  ALCHEMY_KEY ? `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_KEY}` : null,
+  INFURA_KEY ? `https://mainnet.infura.io/v3/${INFURA_KEY}` : null,
   'https://ethereum.publicnode.com',
   'https://rpc.ankr.com/eth'
-];
+].filter(Boolean);
 
 /**
  * Log error helper function

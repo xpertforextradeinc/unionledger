@@ -44,12 +44,12 @@ async function verifyWallet(address) {
 ```
 
 ## RPC Endpoints
-The utility currently includes these endpoints (can be customized):
-1. `https://blockchain.googleapis.com/v1/projects/xpert-forex-trade/.../ethereum-mainnet/rpc`
-2. `https://eth-mainnet.alchemyapi.io/v2/demo`
-3. `https://mainnet.infura.io/v3/demo`
-4. `https://ethereum.publicnode.com`
-5. `https://rpc.ankr.com/eth`
+The utility can be configured with multiple RPC endpoints, for example:
+1. `https://blockchain.googleapis.com/v1/projects/YOUR_PROJECT_ID/.../ethereum-mainnet/rpc`
+2. `https://eth-mainnet.alchemyapi.io/v2/YOUR_ALCHEMY_API_KEY`
+3. `https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID`
+4. `https://your-public-rpc-endpoint.example.com`
+5. `https://rpc.YOUR_PROVIDER.com/eth`
 
 ## Error Handling
 - **Invalid Address**: Throws immediate error for malformed addresses
